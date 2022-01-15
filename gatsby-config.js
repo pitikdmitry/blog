@@ -13,6 +13,7 @@ module.exports = {
     emailSubLink: process.env.EMAIL_SUB_LINK || "",
   },
   plugins: [
+    `gatsby-plugin-netlify-cms`,
     `gatsby-plugin-styled-jsx`, // the plugin's code is inserted directly to gatsby-node.js and gatsby-ssr.js files
     `gatsby-plugin-styled-jsx-postcss`, // as above
     {
