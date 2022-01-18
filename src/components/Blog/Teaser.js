@@ -77,7 +77,7 @@ const Teaser = props => {
             z-index: -1;
           }
 
-          &::after {
+          &:not(:last-child):after {
             border-top: 1px solid ${theme.line.color};
             content: "";
             height: 0;
@@ -90,6 +90,7 @@ const Teaser = props => {
           }
 
           &:last-child {
+
             margin-bottom: 10px;
           }
         }
@@ -166,7 +167,7 @@ const Teaser = props => {
             box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.03);
             margin-top: 20px;
             margin-bottom: 20px;
-            
+
             &:first-child {
               margin-top: 0;
             }

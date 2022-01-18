@@ -1,5 +1,5 @@
 ---
-title: Don't send your own email
+title: d
 tags: ["email", "everything-is-broken", "backend"]
 cover: mailboxes.jpg
 author: atte juvonen

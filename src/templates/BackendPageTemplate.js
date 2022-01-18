@@ -5,34 +5,48 @@ import Seo from "../components/Seo";
 import Article from "../components/Article";
 import Page from "../components/Page";
 import { ThemeContext } from "../layouts";
+import View from "../components/Blog/View";
+import {Cursors, GlobalStateContextBackend, Items} from "../components/GlobalState/GlobalState.js";
+import RoadMapSvg from "../../content/pages/2--backend/roadmap.svg";
 
-const PageTemplate = props => {
+const BackendPageTemplate = props => {
   const page = props.data.page;
+  const fil = props.data.file.name;
 
   return (
-    <React.Fragment>
-      <ThemeContext.Consumer>
-        {theme => (
-          <Article theme={theme}>
-            <Page page={page} theme={theme} />
-          </Article>
-        )}
-      </ThemeContext.Consumer>
+    <GlobalStateContextBackend.Consumer>
+      {g => (
+        <React.Fragment>
+          <ThemeContext.Consumer>
+            {theme => (
+              <Article theme={theme}>
+                <Page page={page} theme={theme} />
+                <RoadMapSvg />
 
-      <Seo data={page} />
-    </React.Fragment>
+                <View
+                  globalState={g}
+                  pageContext={props.pageContext}
+                  theme={theme}
+                />
+              </Article>
+            )}
+          </ThemeContext.Consumer>
+          <Seo data={page} />
+        </React.Fragment>
+      )}
+    </GlobalStateContextBackend.Consumer>
   );
 };
 
-PageTemplate.propTypes = {
+BackendPageTemplate.propTypes = {
   data: PropTypes.object.isRequired
 };
 
-export default PageTemplate;
+export default BackendPageTemplate;
 
 //eslint-disable-next-line no-undef
 export const pageQuery = graphql`
-  query PageByPath($slug: String!) {
+  query PageByPathBackend($slug: String!) {
     page: markdownRemark(fields: { slug: { eq: $slug } }) {
       id
       html
@@ -40,6 +54,9 @@ export const pageQuery = graphql`
       frontmatter {
         title
       }
+    }
+    file(name: { eq: "roadmap" }) {
+      name
     }
   }
 `;

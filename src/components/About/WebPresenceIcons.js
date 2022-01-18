@@ -9,17 +9,14 @@ const WebPresenceIcons = () => {
     return (
         <div className="wrapper">
             <div className="icons">
-                <a href={config.authorGithub} target="_blank"><FaGithub/></a>
-                <a href={config.authorStackoverflow} target="_blank"><FaStackOverflow/></a>
-                <a href={config.authorLinkedin} target="_blank"><FaLinkedin/></a>
-                <a href={config.authorYCombinator} target="_blank"><FaYCombinator/></a>
-                <a href={config.authorUnsplash} target="_blank"><Unsplash/></a>
-                <a href={config.authorCodeforces} target="_blank"><Codeforces/></a>
-                <a href={config.authorYoutube} target="_blank"><FaYoutube/></a> 
+                <a href={config.authorYoutube} target="_blank"><FaYoutube/></a>
             </div>
             <style jsx>{`
             .wrapper {
                 text-align: center;
+            }
+            .video-footer {
+              font-size: 40px;
             }
             .icons {
                 display: inline-block;

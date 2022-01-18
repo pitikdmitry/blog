@@ -34,10 +34,9 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
   }
 };
 
-function createPaginationJSON(pathSuffix, pagePosts) {
-  const dir = "public/paginationJson/"
+function createPaginationJSON(dir, pathSuffix, pagePosts) {
   if (!fs.existsSync(dir)){
-    fs.mkdirSync(dir);
+    fs.mkdirSync(dir, { recursive: true });
   }
   const filePath = dir+"index"+pathSuffix+".json";
   const dataToSave = JSON.stringify(pagePosts);
@@ -45,7 +44,7 @@ function createPaginationJSON(pathSuffix, pagePosts) {
     if(err) {
       return console.log(err);
     }
-  }); 
+  });
 }
 
 exports.createPages = ({ graphql, actions }) => {
@@ -55,7 +54,7 @@ exports.createPages = ({ graphql, actions }) => {
     const postTemplate = path.resolve("./src/templates/PostTemplate.js");
     const pageTemplate = path.resolve("./src/templates/PageTemplate.js");
     const tagTemplate = path.resolve("./src/templates/TagTemplate.js");
-    
+
     const activeEnv = process.env.ACTIVE_ENV || process.env.NODE_ENV || "development"
     console.log(`Using environment config: '${activeEnv}'`)
 
@@ -110,7 +109,7 @@ exports.createPages = ({ graphql, actions }) => {
 
         // Don't leak drafts into production.
         if (activeEnv == "production") {
-          items = items.filter(item => 
+          items = items.filter(item =>
             item.node.fields.prefix &&
             !(item.node.fields.prefix+"").startsWith("draft")
           )
@@ -147,7 +146,7 @@ exports.createPages = ({ graphql, actions }) => {
         });
 
         // Create posts
-        const posts = items.filter(item => item.node.fields.source === "posts");
+        var posts = items.filter(item => item.node.fields.source === "posts");
         posts.forEach(({ node }, index) => {
           const slug = node.fields.slug;
           const prev = index === 0 ? undefined : posts[index - 1].node;
@@ -166,27 +165,29 @@ exports.createPages = ({ graphql, actions }) => {
           });
         });
 
-        // and pages.
-        const pages = items.filter(item => item.node.fields.source === "pages");
-        pages.forEach(({ node }) => {
-          const slug = node.fields.slug;
-          const source = node.fields.source;
-
-          createPage({
-            path: slug,
-            component: pageTemplate,
-            context: {
-              slug,
-              source
-            }
-          });
-        });
+        // // and pages.
+        // const pages = items.filter(item => item.node.fields.source === "pages");
+        // pages.forEach(({ node }) => {
+        //   const slug = node.fields.slug;
+        //   const source = node.fields.source;
+        //   console.log(slug)
+        //   console.log(source)
+        //   createPage({
+        //     path: slug,
+        //     component: pageTemplate,
+        //     context: {
+        //       slug,
+        //       source
+        //     }
+        //   });
+        // });
 
         // Create "paginated homepage" == pages which list blog posts.
         // And at the same time, create corresponding JSON for infinite scroll.
         // Users who have JS enabled will see infinite scroll instead of pagination.
         const postsPerPage = 3;
-        const numPages = Math.ceil(posts.length / postsPerPage);
+        var mainPosts = [...posts];
+        var numPages = Math.ceil(mainPosts.length / postsPerPage);
 
         _.times(numPages, i => {
           const pathSuffix = (i>0 ? i+1 : "");
@@ -194,16 +195,47 @@ exports.createPages = ({ graphql, actions }) => {
           // Get posts for this page
           const startInclusive = i * postsPerPage;
           const endExclusive = startInclusive + postsPerPage;
-          const pagePosts = posts.slice(startInclusive, endExclusive)
-    
-          createPaginationJSON(pathSuffix, pagePosts);
+          const pagePosts = mainPosts.slice(startInclusive, endExclusive)
+          console.log(pagePosts)
+          createPaginationJSON(`public/paginationJson/main/`, pathSuffix, pagePosts);
           createPage({
-            path: `/`+pathSuffix,
+            path: `/articles/`+pathSuffix,
             component: path.resolve("./src/templates/index.js"),
             context: {
               numPages,
               currentPage: i + 1,
-              initialPosts: pagePosts
+              initialPosts: pagePosts,
+              slug: `/main/`,
+              source: "pages"
+            }
+          });
+        });
+
+        // create backend page
+        const backendPostsPerPage = 3;
+        var backendPosts = [...posts];
+        backendPosts = backendPosts.filter(item => item.node.frontmatter.tags.includes("backend"));
+
+        var backendNumPages = Math.ceil(backendPosts.length / backendPostsPerPage);
+
+        _.times(backendNumPages, i => {
+          const pathSuffix = (i>0 ? i+1 : "");
+
+          // Get posts for this page
+          const startInclusive = i * backendPostsPerPage;
+          const endExclusive = startInclusive + backendPostsPerPage;
+          const pagePosts = backendPosts.slice(startInclusive, endExclusive)
+
+          createPaginationJSON(`public/paginationJson/backend/`, pathSuffix, pagePosts);
+          createPage({
+            path: `/backend/`+pathSuffix,
+            component: path.resolve("./src/templates/BackendPageTemplate.js"),
+            context: {
+              backendNumPages,
+              currentPage: i + 1,
+              initialPosts: pagePosts,
+              slug: `/backend/`,
+              source: "pages"
             }
           });
         });

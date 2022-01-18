@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { graphql, useStaticQuery } from "gatsby";
+import WebPresenceIcons from "../About/WebPresenceIcons";
 
 const Footer = props => {
   const { theme } = props;
@@ -9,11 +10,8 @@ const Footer = props => {
   return (
     <React.Fragment>
       <footer className="footer">
-        <a href="https://www.github.com/baobabKoodaa/blog/">
-          This blog is open source. Last updated {buildTime}.
-        </a>
-        
-      </footer> 
+        <WebPresenceIcons />
+      </footer>
 
       {/* --- STYLES --- */}
       <style jsx>{`
@@ -27,6 +25,19 @@ const Footer = props => {
           bottom: 0;
           width: 100%;
           height: 60px;
+          &::before {
+            border-top: 1px solid ${theme.line.color};
+            content: "";
+            height: 0;
+            position: absolute;
+            bottom: ${`calc(${theme.space.default} * -1.5)`};
+            left: 50%;
+            transform: translateX(-50%);
+            transition: all ${theme.time.duration.default};
+            width: 50%;
+            top: 18px;
+          }
+
         }
       `}</style>
     </React.Fragment>
