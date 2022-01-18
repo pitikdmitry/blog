@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import Seo from "../components/Seo"
 import View from "../components/Blog/View.js";
-import { GlobalStateContextMain } from "../components/GlobalState/GlobalState.js";
+import { GlobalStateContextArticles } from "../components/GlobalState/GlobalState.js";
 import { ThemeContext } from "../layouts";
 import { graphql } from "gatsby";
 import Article from "../components/Article";
@@ -15,7 +15,7 @@ class IndexPage extends React.Component {
     const page = this.props.data.page;
 
     return (
-      <GlobalStateContextMain.Consumer>
+      <GlobalStateContextArticles.Consumer>
         {g => (
           <React.Fragment>
             <ThemeContext.Consumer>
@@ -34,7 +34,7 @@ class IndexPage extends React.Component {
             <Seo data={page} />
           </React.Fragment>
         )}
-      </GlobalStateContextMain.Consumer>
+      </GlobalStateContextArticles.Consumer>
     );
   }
 }
@@ -47,7 +47,7 @@ export default IndexPage;
 
 //eslint-disable-next-line no-undef
 export const pageQuery = graphql`
-  query PageByPathMain($slug: String!) {
+  query PageByPathArticles($slug: String!) {
     page: markdownRemark(fields: { slug: { eq: $slug } }) {
       id
       html

@@ -9,7 +9,7 @@ import View from "../components/Blog/View";
 import {Cursors, GlobalStateContextBackend, Items} from "../components/GlobalState/GlobalState.js";
 import RoadMapSvg from "../../content/pages/2--backend/roadmap.svg";
 
-const BackendPageTemplate = props => {
+const Backend = props => {
   const page = props.data.page;
   const fil = props.data.file.name;
 
@@ -38,11 +38,11 @@ const BackendPageTemplate = props => {
   );
 };
 
-BackendPageTemplate.propTypes = {
+Backend.propTypes = {
   data: PropTypes.object.isRequired
 };
 
-export default BackendPageTemplate;
+export default Backend;
 
 //eslint-disable-next-line no-undef
 export const pageQuery = graphql`

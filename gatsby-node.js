@@ -186,8 +186,8 @@ exports.createPages = ({ graphql, actions }) => {
         // And at the same time, create corresponding JSON for infinite scroll.
         // Users who have JS enabled will see infinite scroll instead of pagination.
         const postsPerPage = 3;
-        var mainPosts = [...posts];
-        var numPages = Math.ceil(mainPosts.length / postsPerPage);
+        var articlesPosts = [...posts];
+        var numPages = Math.ceil(articlesPosts.length / postsPerPage);
 
         _.times(numPages, i => {
           const pathSuffix = (i>0 ? i+1 : "");
@@ -195,17 +195,16 @@ exports.createPages = ({ graphql, actions }) => {
           // Get posts for this page
           const startInclusive = i * postsPerPage;
           const endExclusive = startInclusive + postsPerPage;
-          const pagePosts = mainPosts.slice(startInclusive, endExclusive)
-          console.log(pagePosts)
-          createPaginationJSON(`public/paginationJson/main/`, pathSuffix, pagePosts);
+          const pagePosts = articlesPosts.slice(startInclusive, endExclusive)
+          createPaginationJSON(`public/paginationJson/articles/`, pathSuffix, pagePosts);
           createPage({
             path: `/articles/`+pathSuffix,
-            component: path.resolve("./src/templates/index.js"),
+            component: path.resolve("./src/templates/articles.js"),
             context: {
               numPages,
               currentPage: i + 1,
               initialPosts: pagePosts,
-              slug: `/main/`,
+              slug: `/articles/`,
               source: "pages"
             }
           });
@@ -229,7 +228,7 @@ exports.createPages = ({ graphql, actions }) => {
           createPaginationJSON(`public/paginationJson/backend/`, pathSuffix, pagePosts);
           createPage({
             path: `/backend/`+pathSuffix,
-            component: path.resolve("./src/templates/BackendPageTemplate.js"),
+            component: path.resolve("./src/templates/backend.js"),
             context: {
               backendNumPages,
               currentPage: i + 1,

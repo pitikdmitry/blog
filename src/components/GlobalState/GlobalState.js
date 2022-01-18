@@ -1,6 +1,6 @@
 import React from "react"
 
-export const GlobalStateContextMain = React.createContext({
+export const GlobalStateContextArticles = React.createContext({
   cursor: 0, /* Which page infinite scroll should fetch next. */
   useInfiniteScroll: true, /* Fallback in case of error. */
   items: [],
@@ -11,7 +11,7 @@ export const GlobalStateContextMain = React.createContext({
   updateState: () => {}
 });
 
-export class GlobalStateMain extends React.Component {
+export class GlobalStateArticles extends React.Component {
   constructor(props) {
     super(props)
 
@@ -63,7 +63,7 @@ export class GlobalStateMain extends React.Component {
   }
 
   getPath = () => {
-    return `${__PATH_PREFIX__}/paginationJson/main/index${this.state.cursor}.json`
+    return `${__PATH_PREFIX__}/paginationJson/articles/index${this.state.cursor}.json`
   }
 
   loadMore = () => {
@@ -94,9 +94,9 @@ export class GlobalStateMain extends React.Component {
 
   render() {
     return (
-      <GlobalStateContextMain.Provider value={this.state}>
+      <GlobalStateContextArticles.Provider value={this.state}>
         {this.props.children}
-      </GlobalStateContextMain.Provider>
+      </GlobalStateContextArticles.Provider>
     )
   }
 }
