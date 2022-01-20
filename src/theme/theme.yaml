@@ -41,6 +41,7 @@ color:
   menu:
     border: ghostwhite;
   neutral:
+    softyellow: &color-soft-yellow '#F9F7F4'
     white: &color-white '#ffffff'
     gray:
       a: &color-gray-1 '#fafaf9'
@@ -55,7 +56,7 @@ color:
       j: &color-gray-10 '#666' #'#3e3e3c'
       k: '#2b2826'
     black: '#000000'
-  
+
   brand:
     primary: &color-brand-primary '#E39E22' #'#07889B' #'#C0B283' #'#856084' #'#616247'
     primaryLight: '#f9ebd2'
@@ -104,7 +105,7 @@ time:
 # GENERAL TOKENS
 background:
   color:
-    primary: *color-white
+    primary: *color-soft-yellow
     alt: *color-gray-1
     brand: *color-brand-primary
 text:

@@ -1,11 +1,11 @@
 module.exports = {
-  siteTitle: "Atte Juvonen", // <title>
-  shortSiteTitle: "Atte Juvonen", // <title> ending for posts and pages
-  siteDescription: "Atte Juvonen",
-  siteUrl: "https://www.attejuvonen.fi",
+  siteTitle: "Cup of code", // <title>
+  shortSiteTitle: "Cup of code", // <title> ending for posts and pages
+  siteDescription: "",
+  siteUrl: "https://cupofcode.ru",
   // pathPrefix: "",
   siteImage: "preview.jpg",
-  siteLanguage: "en",
+  siteLanguage: "ru",
 
   /* author */
   authorName: "Atte Juvonen",
@@ -19,15 +19,15 @@ module.exports = {
   authorYCombinator: "https://news.ycombinator.com/user?id=baobabKoodaa",
 
   /* header text */
-  headerTitle: "atte juvonen",
-  headerSubTitle: "",
+  headerTitle: "cup of code",
+  headerSubTitle: "cup of code",
 
   /* manifest.json */
-  manifestName: "Atte Juvonen",
-  manifestShortName: "atteJuvonen", // max 12 characters
-  manifestStartUrl: "/index.html",
-  manifestBackgroundColor: "white",
-  manifestThemeColor: "#666",
+  manifestName: "cup of code",
+  manifestShortName: "cup of code", // max 12 characters
+  manifestStartUrl: "/",
+  manifestBackgroundColor: "#F9F7F4",
+  manifestThemeColor: "#A2755E",
   manifestDisplay: "standalone",
 
   // gravatar
