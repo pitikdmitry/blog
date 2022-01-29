@@ -47,7 +47,7 @@ const WebPresenceIcons = () => {
                 font-size: 40px;
                 :global(svg) {
                     margin: 10px;
-                    fill: ${theme.color.brand.primary} !important;
+                    fill: ${theme.color.neutral.gray.footer} !important;
                 }
             }
             @from-width tablet {

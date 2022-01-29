@@ -131,8 +131,8 @@ class Menu extends React.Component {
       <React.Fragment>
         <nav className={`menu ${open ? "open" : ""}`} rel="js-menu">
           <ul className="itemList" ref={this.itemList}>
-            {this.items.map(item => (
-              <Item item={item} key={item.label} icon={item.icon} theme={theme} />
+            {this.items.map((item, index) => (
+              <Item item={item} index={index} key={item.label} icon={item.icon} theme={theme} />
             ))}
           </ul>
           {this.state.hiddenItems.length > 0 && <Expand onClick={this.toggleMenu} theme={theme} />}

@@ -16,6 +16,7 @@ space :
     s: 10px
     m: 20px
     l: 40px
+    xl: 60px
   stack:
     default : 0 0 20px 0
     xxs: 0 0 2px 0
@@ -56,8 +57,16 @@ color:
       j: &color-gray-10 '#666' #'#3e3e3c'
       k: '#2b2826'
       new: '#2c2823'
+      footer: '#C8C8C9'
     black: '#000000'
     common: '#F8F7F1'
+    dark: '#17181B'
+  green: '#64A17D'
+  violet: '#644DB3'
+  yellow: '#F3C25D'
+  sea: '#629BB0'
+  red: '#BA5050'
+  orange: '#E58F48'
 
   brand:
     primary: &color-brand-primary '#87240f' #'#07889B' #'#C0B283' #'#856084' #'#616247'

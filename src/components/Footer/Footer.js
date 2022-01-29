@@ -10,19 +10,24 @@ const Footer = props => {
   return (
     <React.Fragment>
       <footer className="footer">
+        <span className="footer-text">Тут текст о том что все права при себе</span>
         <WebPresenceIcons />
       </footer>
 
       {/* --- STYLES --- */}
       <style jsx>{`
         .footer {
-          background: ${theme.color.neutral.common};
-          padding: ${theme.space.inset.default};
+          background: ${theme.color.neutral.dark};
+          opacity: 0.9;
+          padding: ${theme.space.inset.default} ${theme.space.inset.xl};
           text-align: center;
-          color: ${theme.color.neutral.gray.g};
+          color: ${theme.color.neutral.gray.footer};
           font-size: ${theme.font.size.xxs};
           width: 100%;
           position: relative;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
         }
       `}</style>
     </React.Fragment>

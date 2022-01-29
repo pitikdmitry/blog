@@ -3,18 +3,18 @@ import PropTypes from "prop-types";
 import { Link } from "gatsby";
 
 const Item = props => {
-  const { theme, item: { label, to, icon: Icon } = {}, onClick } = props;
+  const { theme, index, item: { label, to, icon: Icon } = {}, onClick } = props;
 
   return (
     <React.Fragment>
       <li className={"hiddenItem" in props ? "hiddenItem" : "item"} key={label}>
         <Link
           to={to}
-          className={"hiddenItem" in props ? "inHiddenItem" : ""}
+          className={"hiddenItem" in props ? "inHiddenItem" : `link-index-${index}`}
           onClick={onClick}
           data-slug={to}
         >
-          {Icon && <Icon />} {label}
+          {label}
         </Link>
       </li>
 
@@ -46,6 +46,8 @@ const Item = props => {
 
         @from-width desktop {
           .item {
+            margin-right: 20px;
+            
             :global(a) {
               color: ${theme.text.color.primary};
               padding: ${theme.space.inset.s};
@@ -66,10 +68,54 @@ const Item = props => {
                 content: "";
                 height: 0;
                 position: absolute;
-                width: 86%;
+                width: 77%;
                 bottom: 0;
               }
             }
+            
+            // Меню разных цветов
+            :global(a.link-index-0:hover) {
+              color: ${theme.color.green};
+              background: color(white alpha(-60%));
+              
+              &::after {
+                border-top: 1px solid ${theme.color.green};
+                content: "";
+                height: 0;
+                position: absolute;
+                width: 77%;
+                bottom: 0;
+              }
+            }
+            
+            :global(a.link-index-1:hover) {
+              color: ${theme.color.violet};
+              background: color(white alpha(-60%));
+              
+              &::after {
+                border-top: 1px solid ${theme.color.violet};
+                content: "";
+                height: 0;
+                position: absolute;
+                width: 77%;
+                bottom: 0;
+              }
+            }
+            
+             :global(a.link-index-2:hover) {
+              color: ${theme.color.red};
+              background: color(white alpha(-60%));
+              
+              &::after {
+                border-top: 1px solid ${theme.color.red};
+                content: "";
+                height: 0;
+                position: absolute;
+                width: 77%;
+                bottom: 0;
+              }
+            }
+            // конец "Меню разных цветов"
 
             :global(svg) {
               transition: all 0s;

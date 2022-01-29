@@ -71,7 +71,7 @@ class Layout extends React.Component {
             }
             main {
               padding-bottom: 80px;
-              background: #F8F7F1;
+              background: #ffffff;
             }
           `}</style>
           <style jsx global>{`
