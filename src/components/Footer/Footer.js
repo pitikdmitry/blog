@@ -16,28 +16,13 @@ const Footer = props => {
       {/* --- STYLES --- */}
       <style jsx>{`
         .footer {
-          background: ${theme.color.neutral.softyellow};
+          background: ${theme.color.neutral.common};
           padding: ${theme.space.inset.default};
           text-align: center;
           color: ${theme.color.neutral.gray.g};
           font-size: ${theme.font.size.xxs};
-          position: absolute;
-          bottom: 0;
           width: 100%;
-          height: 60px;
-          &::before {
-            border-top: 1px solid ${theme.line.color};
-            content: "";
-            height: 0;
-            position: absolute;
-            bottom: ${`calc(${theme.space.default} * -1.5)`};
-            left: 50%;
-            transform: translateX(-50%);
-            transition: all ${theme.time.duration.default};
-            width: 50%;
-            top: 18px;
-          }
-
+          position: relative;
         }
       `}</style>
     </React.Fragment>

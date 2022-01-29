@@ -30,22 +30,29 @@ const Teaser = props => {
       <li>
         <Link to={slug} key={slug} className="link">
           <div className="gatsby-image-outer-wrapper">
-            <Picture fluid={fluid} critical={index==0}/>
+            <Picture fluid={fluid} critical={index==5}/>
           </div>
-          <h1>
-            {title} <FaArrowRight className="arrow" />
-          </h1>
+          <h1>{title}</h1>
           <p className="meta">
             <span>
               <FaCalendar size={18} /> {prefix}
             </span>
-            {/* <span>
-              <FaUser size={18} /> {author}
-            </span> */}
-            {tags && tags.map(tag =>
-              <span key={tag}>
-              <FaTag size={18} /> {tag}
-              </span>
+            {tags && tags.map((tag, index) => {
+                if (index === 0) {
+                  return (
+                    <span key={index}>
+                      {tag}
+                    </span>
+                  )
+                }
+
+                return (
+                  <>
+                    <span>|</span>
+                    <span key={index}>{tag}</span>
+                  </>
+                )
+              }
             )}
           </p>
           <p>{excerpt}</p>
@@ -56,7 +63,7 @@ const Teaser = props => {
       <style jsx>{`
         :global(.link) {
           width: 100%;
-          color: ${theme.text.color.primary};
+          color: ${theme.color.neutral.gray.new};
         }
 
         li {
@@ -66,11 +73,9 @@ const Teaser = props => {
           padding: ${theme.space.inset.s};
           position: relative;
           transition: all ${theme.time.duration.default};
-          background: transparent;
+          background: ${theme.color.neutral.white};
 
           :global(.gatsby-image-outer-wrapper) {
-            border-radius: ${theme.size.radius.default};
-            border: 1px solid ${theme.line.color};
             overflow: hidden;
           }
           :global(.gatsby-image-outer-wrapper img) {
@@ -90,7 +95,6 @@ const Teaser = props => {
           }
 
           &:last-child {
-
             margin-bottom: 10px;
           }
         }
@@ -99,7 +103,6 @@ const Teaser = props => {
           padding: ${theme.space.m} ${theme.space.s} 0;
           line-height: ${theme.blog.h1.lineHeight};
           font-size: ${theme.blog.h1.size};
-          text-remove-gap: both;
 
           :global(.arrow) {
             display: none;
@@ -111,13 +114,15 @@ const Teaser = props => {
         .meta {
           display: flex;
           flex-flow: row wrap;
-          font-size: 0.8em;
+          font-size: 0.7em;
           padding: ${theme.space.m} ${theme.space.s};
           background: transparent;
 
           :global(svg) {
             fill: ${theme.icon.color};
             margin: ${theme.space.inline.xs};
+            height: 14px;
+            width: 14px;
           }
           span {
             align-items: center;
@@ -179,8 +184,9 @@ const Teaser = props => {
         }
         @from-width desktop {
           li {
-            margin: ${`calc(${theme.space.default} * 4) 0 calc(${theme.space.default} * 5)`};
+            margin: ${`calc(${theme.space.default}) 0 calc(${theme.space.default} * 5)`};
             padding: 0 0 ${`calc(${theme.space.default} * 2)`};
+            max-width: 450px;
 
             &::after {
               bottom: ${`calc(${theme.space.default} * -1.5)`};
@@ -197,7 +203,7 @@ const Teaser = props => {
             top: ${`calc(${theme.space.default} * -2.75)`};
           }
           h1 {
-            font-size: 2.5em;
+            font-size: 2em;
             padding: ${`calc(${theme.space.default} * 1.2) calc(${theme.space.default} * 2) 0`};
           }
           .meta {
@@ -208,9 +214,15 @@ const Teaser = props => {
             padding: ${`0 calc(${theme.space.default} * 2)`};
           }
           li {
+            border-radius: ${theme.size.radius.small};
+            box-shadow: 0 2px 5px 0 rgb(0 0 0 / 15%);
+            
+            :global(.gatsby-image-wrapper) {
+              transform: scale(1.0);
+            }
             &:hover {
               border: 1px solid ${theme.line.color};
-              box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.03);
+              box-shadow: 0 5px 10px 0 rgb(0 0 0 / 15%);
 
               &:after {
                 bottom: ${`calc(${theme.space.default} * -2.5)`};
@@ -219,7 +231,7 @@ const Teaser = props => {
                 transform: scale(1.1);
               }
               h1 {
-                color: ${theme.blog.h1.hoverColor};
+                color: ${theme.color.brand.primary};
               }
               :global(.arrow) {
                 opacity: 1;

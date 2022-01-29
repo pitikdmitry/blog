@@ -46,6 +46,9 @@ const Blog = props => {
         @above desktop {
           ul {
             max-width: ${theme.text.maxWidth.desktop};
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
           }
         }
         @below desktop {

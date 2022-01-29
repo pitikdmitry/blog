@@ -11,11 +11,10 @@ const Headline = props => {
       {/* --- STYLES --- */}
       <style jsx>{`
         h1 {
-          font-size: ${theme.font.size.xxl};
-          margin: ${theme.space.stack.l};
+          font-size: 40px !important;
           animation-name: headlineEntry;
           animation-duration: 0;
-          color: ${theme.color.neutral.gray.j};
+          color: ${theme.color.neutral.gray.new};
 
           :global(span) {
             font-weight: ${theme.font.weight.standard};

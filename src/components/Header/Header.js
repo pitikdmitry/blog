@@ -25,7 +25,7 @@ class Header extends React.Component {
   getHeaderSize = () => {
     const fixed = this.state.fixed ? "fixed" : "";
     const homepage = this.props.path === "/" ? "homepage" : "";
-    return "fixed"; // `${fixed} ${homepage}` (Change me if you want a more "lively" navbar)
+    return  `${fixed} ${homepage}`; // `${fixed} ${homepage}` (Change me if you want a more "lively" navbar)
   };
 
   render() {
@@ -167,7 +167,9 @@ class Header extends React.Component {
           @from-width desktop {
             .header {
               align-items: center;
-              background-color: ${theme.color.neutral.softyellow};
+              background-color: ${theme.color.neutral.white};
+              height: ${theme.header.height.initial};
+              padding: 0 10px;
               display: flex;
               position: absolute;
               top: 0;
@@ -175,10 +177,11 @@ class Header extends React.Component {
               justify-content: space-between;
               transition: padding 0.5s;
               border-bottom: 2px solid ${theme.color.menu.border};
+              box-shadow: 0 2px 10px 0 rgb(0 0 0 / 5%);
 
               &.fixed {
                 height: ${theme.header.height.fixed};
-                background-color: ${theme.color.neutral.softyellow};
+                background-color: ${theme.color.neutral.white};
                 left: 0;
                 padding: 0 ${theme.space.m};
                 position: fixed;

@@ -71,6 +71,7 @@ class Layout extends React.Component {
             }
             main {
               padding-bottom: 80px;
+              background: #F8F7F1;
             }
           `}</style>
           <style jsx global>{`
@@ -94,15 +95,15 @@ class Layout extends React.Component {
               padding: 0;
             }
             body {
-              font-family: 'Open Sans', 'Arial', 'sans-serif';
+              font-family: 'Roboto', 'Arial', 'sans-serif';
               font-weight: 400;
             }
             h1,
             h2,
             h3 {
-              font-weight: 600;
-              font-family: 'Open Sans', 'Arial', 'sans-serif';
-              line-height: 1.1;
+              font-weight: 500;
+              font-family: 'Roboto', 'Arial', 'sans-serif';
+              line-height: 1.3;
               letter-spacing: -0.03em;
               margin: 0;
             }
@@ -113,8 +114,8 @@ class Layout extends React.Component {
               margin: 0;
             }
             strong {
-              font-family: 'Open Sans', 'Arial', 'sans-serif';
-              font-weight: 600;
+              font-family: 'Roboto', 'Arial', 'sans-serif';
+              font-weight: 500;
             }
             a {
               text-decoration: none;

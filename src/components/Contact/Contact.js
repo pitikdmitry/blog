@@ -54,7 +54,7 @@ class Contact extends React.Component {
       body: this.encode({
         "form-name": "contact",
         "javascript-detected": true,
-        ...this.state 
+        ...this.state
       })
     })
       .then(function(rawResponse) {
@@ -163,7 +163,7 @@ class Contact extends React.Component {
                   type="submit"
                   value="Submit"
                   id="submitButton"
-                  className="formItem" 
+                  className="formItem"
                 />
                 {contactPostAddress === "" && (
                   <h1>Undefined contactPostAddress!</h1>
@@ -176,7 +176,7 @@ class Contact extends React.Component {
                   width: 100%;
                   border-radius: 5px;
                   border-width: 2px;
-                  font-family: Open Sans;
+                  font-family: Roboto;
                   font-weight: 400;
                   font-size: 1em;
                 }
@@ -191,7 +191,7 @@ class Contact extends React.Component {
                 #submitButton {
                   color: white;
                   height: auto;
-                  font-family: Open Sans;
+                  font-family: Roboto;
                   font-size: 1.2em;
                   font-weight: 400;
                   padding: 0.5em 3em;

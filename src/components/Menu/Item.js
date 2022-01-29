@@ -26,6 +26,7 @@ const Item = props => {
           transition: all ${theme.time.duration.default};
           display: flex;
           align-items: center;
+          position: relative;
 
           :global(a) {
             padding: ${theme.space.inset.s};
@@ -59,6 +60,15 @@ const Item = props => {
             :global(a:hover) {
               color: ${theme.color.brand.primary};
               background: color(white alpha(-60%));
+              
+              &::after {
+                border-top: 1px solid ${theme.color.brand.primary};
+                content: "";
+                height: 0;
+                position: absolute;
+                width: 86%;
+                bottom: 0;
+              }
             }
 
             :global(svg) {

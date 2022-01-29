@@ -9,11 +9,35 @@ const WebPresenceIcons = () => {
     return (
         <div className="wrapper">
             <div className="icons">
-                <a href={config.authorYoutube} target="_blank"><FaYoutube/></a>
+              <a href={config.authorYoutube} target="_blank"><FaYoutube/></a>
+              <a href={config.authorYoutube} target="_blank"><FaYoutube/></a>
+              <a href={config.authorYoutube} target="_blank"><FaYoutube/></a>
             </div>
             <style jsx>{`
             .wrapper {
                 text-align: center;
+                &:before {
+                  border-top: 1px solid #ecebea;
+                  content: "";
+                  height: 0;
+                  position: absolute;
+                  left: 50%;
+                  transform: translateX(-50%);
+                  bottom: 26px;
+                  transition: all 0.5s;
+                  width: 50%;
+                }
+                 &:after {
+                  border-top: 1px solid #ecebea;
+                  content: "";
+                  height: 0;
+                  position: absolute;
+                  left: 50%;
+                  transform: translateX(-50%);
+                  top: 18px;
+                  transition: all 0.5s;
+                  width: 50%;
+                }
             }
             .video-footer {
               font-size: 40px;
@@ -38,9 +62,8 @@ const WebPresenceIcons = () => {
                 }
                 @media (hover: hover) {
                     .icons :global(a:hover svg) {
-                        margin-top: 0px;
-                        margin-bottom: 20px;
-                        fill: ${theme.color.brand.primaryDark} !important;
+                      opacity: 0.7;
+                      
                     }
                 }
             }
