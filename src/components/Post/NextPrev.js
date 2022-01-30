@@ -81,12 +81,12 @@ const NextPrev = props => {
           display: flex;
           height: 2px;
           position: relative;
-          background: #00684A;
+          background: ${theme.color.green};
           width: 100%;
           transition: width 300ms ease;
         }
         .arrow-head {
-          border: 2px solid #00684A;
+          border: 2px solid ${theme.color.green};
           border-radius: 2px;
           width: 12px;
           position: absolute;
