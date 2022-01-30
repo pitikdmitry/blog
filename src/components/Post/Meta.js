@@ -1,28 +1,29 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "gatsby";
-import { currDate } from "../../utils/helpers";
+import {currDate, convertMonth, convertISODate} from "../../utils/helpers";
 import { FaUser, FaTag, FaCalendar } from "react-icons/fa/";
+import moment from "moment";
 
 const Meta = props => {
   const { author: authorName, tags, theme, lastEdit } = props;
-  const prefix = props.prefix || currDate() /* Intent: get date placeholder for viewing drafts. */
-  
+  const prefixDate = props.prefix || currDate() /* Intent: get date placeholder for viewing drafts. */
+  let dateStr = convertISODate(prefixDate)
   //TODO: lastEdit
-
+  console.log(lastEdit);
   return (
     <p className="meta">
       <span>
-        <FaCalendar size={18} /> {prefix}
+        {dateStr}
       </span>
 
       {/* <span>
         <FaUser size={18} /> {authorName}
       </span> */}
 
-      {tags && tags.map(tag => 
+      {tags && tags.map(tag =>
         <span key={tag}>
-          
+
           <Link to={`/tag/${tag.split(" ").join("-")}`}>
             <span>
               <FaTag size={18} />

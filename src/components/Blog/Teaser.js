@@ -6,6 +6,7 @@ import Picture from "gatsby-image";
 import { Link } from "gatsby";
 import PropTypes from "prop-types";
 import React from "react";
+import {convertISODate} from "../../utils/helpers";
 
 const Teaser = props => {
   const {
@@ -24,6 +25,7 @@ const Teaser = props => {
     },
     index
   } = props;
+  let dateStr = convertISODate(prefix)
 
   return (
     <React.Fragment>
@@ -56,7 +58,7 @@ const Teaser = props => {
           <h1>{title}</h1>
           <p className="meta">
             <span>
-               {prefix}
+               {dateStr}
             </span>
           </p>
           <p>{excerpt}</p>
@@ -140,19 +142,19 @@ const Teaser = props => {
             margin: ${theme.space.xs} ${theme.space.s} ${theme.space.xs} 0;
           }
         }
-        
+
         .tag {
           border-radius: 3px;
           padding: 0 3px;
           color: ${theme.color.neutral.white};
           letter-spacing: 1px;
         }
-        
+
         .tag-back {
           border: 2px ${theme.color.green} solid;
           background: ${theme.color.green};
         }
-        
+
         .tag-front {
           border: 2px ${theme.color.violet} solid;
           background: ${theme.color.violet};
