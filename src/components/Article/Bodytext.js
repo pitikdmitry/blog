@@ -27,10 +27,10 @@ const Bodytext = props => {
         .bodytext {
           animation-name: bodytextEntry;
           animation-duration: 0;
-          color: ${theme.color.neutral.gray.j};
+          color: ${theme.color.neutral.gray.new};
 
           :global(blockquote) {
-            border-left: 5px solid #bbbbbb;
+            border-left: 5px solid ${theme.color.sea};
             margin: 2.5em 0;
             padding: 0em 1.1em 0em 1.3em;
             position: relative;
@@ -69,8 +69,8 @@ const Bodytext = props => {
             list-style-type: square;
           }
           :global(a) {
-            font-weight: ${theme.font.weight.bold};
-            color: ${theme.color.brand.primary};
+            font-weight: ${theme.font.weight.middle};
+            color: ${theme.color.sea};
             text-decoration: none;
           }
           @from-width desktop {

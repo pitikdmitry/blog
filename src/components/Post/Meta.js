@@ -10,32 +10,43 @@ const Meta = props => {
   const prefixDate = props.prefix || currDate() /* Intent: get date placeholder for viewing drafts. */
   let dateStr = convertISODate(prefixDate)
   //TODO: lastEdit
-  console.log(lastEdit);
+
   return (
-    <p className="meta">
-      <span>
-        {dateStr}
-      </span>
+      <div className="tags-block">
+        <p className="date">
+          {dateStr}
+        </p>
+        <p className="delimiter">|</p>
+        <p className="meta">
+          {tags && tags.map((tag, index) => {
+            if (tag === "фронтенд") {
+              return (
+                <span className="tag tag-front" key={index}>
+                   <Link to={`/tag/${tag.split(" ").join("-")}`}>
+                    <span>{tag}</span>
+                   </Link>
+                  </span>
+              )
+            }
 
-      {/* <span>
-        <FaUser size={18} /> {authorName}
-      </span> */}
+            return (
+              <span className="tag tag-back" key={index}>
+                 <Link to={`/tag/${tag.split(" ").join("-")}`}>
+                  <span>
+                    {tag}
+                  </span>
+                </Link>
+              </span>
+            )
 
-      {tags && tags.map(tag =>
-        <span key={tag}>
-
-          <Link to={`/tag/${tag.split(" ").join("-")}`}>
-            <span>
-              <FaTag size={18} />
-              {tag}
-            </span>
-          </Link>
-        </span>
-      )}
+          })
+          }
+        </p>
 
       {/* --- STYLES --- */}
       <style jsx>{`
         .meta {
+          position: relative;
           display: flex;
           flex-flow: row wrap;
           font-size: 0.8em;
@@ -51,12 +62,41 @@ const Meta = props => {
             align-items: center;
             display: flex;
             text-transform: uppercase;
-            margin: ${theme.space.xs} ${theme.space.s} ${theme.space.xs} 0;
+            margin: 0 ${theme.space.xs};
           }
+        }
+        .delimiter {
+          margin: 0 10px;
+        }
+        .tags-block {
+          display: flex;
+          align-items: center;
+         }
+        .tag {
+          border-radius: 3px;
+          padding: 0 3px;
+          color: ${theme.color.neutral.white};
+          letter-spacing: 1px;
+          margin: 5px 10px 5px 0;
+          text-transform: uppercase;
+        }
+        .tag span {
+          color: ${theme.color.neutral.white};
+        }
+        .tag-back {
+          border: 2px ${theme.color.green} solid;
+          background: ${theme.color.green};
+        }
+        .tag-front {
+          border: 2px ${theme.color.violet} solid;
+          background: ${theme.color.violet};
+        }
+        .date {
+          text-transform: lowercase;
         }
         @from-width tablet {
           .meta {
-            margin: ${`calc(${theme.space.m} * 1.5) 0 ${theme.space.m}`};
+            margin: ${`${theme.space.m} 0 ${theme.space.m}`};
           }
         }
         @media (hover: hover) {
@@ -76,7 +116,7 @@ const Meta = props => {
           }
         }
       `}</style>
-    </p>
+    </div>
   );
 };
 

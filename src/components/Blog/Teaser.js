@@ -49,7 +49,6 @@ const Teaser = props => {
                   {tag}
                 </span>
                   )
-
                 })
                 }
               </p>
@@ -57,7 +56,7 @@ const Teaser = props => {
           </div>
           <h1>{title}</h1>
           <p className="meta">
-            <span>
+            <span className="date">
                {dateStr}
             </span>
           </p>

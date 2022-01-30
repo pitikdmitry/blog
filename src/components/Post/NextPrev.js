@@ -34,8 +34,11 @@ const NextPrev = props => {
               </h4>
             </span>
             <span className="next-arrow live-arrow">
-              <FaArrowRight />
+              <span className="arrow-body">
+                <span className="arrow-head" />
+              </span>
             </span>
+
           </Link>
         )}
         {prevSlug && (
@@ -64,6 +67,35 @@ const NextPrev = props => {
         }
         .next-arrow {
           margin-left: 10px;
+          display: flex;
+          height: 100%;
+          min-height: 16px;
+          align-items: center;
+          width: 32px;
+          transition: width 300ms ease;
+        }
+        .next-arrow:hover {
+          width: 48px;
+        }
+        .arrow-body {
+          display: flex;
+          height: 2px;
+          position: relative;
+          background: #00684A;
+          width: 100%;
+          transition: width 300ms ease;
+        }
+        .arrow-head {
+          border: 2px solid #00684A;
+          border-radius: 2px;
+          width: 12px;
+          position: absolute;
+          border-top: none;
+          border-left: none;
+          height: 12px;
+          transform: rotate(-45deg);
+          right: 0;
+          top: -5px;
         }
         .links {
           display: flex;
@@ -93,9 +125,10 @@ const NextPrev = props => {
         }
 
         h4 {
-          font-weight: 600;
+          font-weight: 500;
           margin: 0;
           font-size: 1.1em;
+          color: ${theme.color.neutral.gray.new};
         }
         time {
           color: ${theme.color.neutral.gray.g};
