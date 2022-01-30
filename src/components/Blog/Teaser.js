@@ -31,29 +31,33 @@ const Teaser = props => {
         <Link to={slug} key={slug} className="link">
           <div className="gatsby-image-outer-wrapper">
             <Picture fluid={fluid} critical={index==5}/>
+            <div className="tags-block">
+              <p className="meta">
+                {tags && tags.map((tag, index) => {
+                  if (tag === "фронтенд") {
+                    return (
+                      <span className="tag tag-front" key={index}>
+                    {tag}
+                  </span>
+                    )
+                  }
+
+                  return (
+                    <span className="tag tag-back" key={index}>
+                  {tag}
+                </span>
+                  )
+
+                })
+                }
+              </p>
+            </div>
           </div>
           <h1>{title}</h1>
           <p className="meta">
             <span>
-              <FaCalendar size={18} /> {prefix}
+               {prefix}
             </span>
-            {tags && tags.map((tag, index) => {
-                if (index === 0) {
-                  return (
-                    <span key={index}>
-                      {tag}
-                    </span>
-                  )
-                }
-
-                return (
-                  <>
-                    <span>|</span>
-                    <span key={index}>{tag}</span>
-                  </>
-                )
-              }
-            )}
           </p>
           <p>{excerpt}</p>
         </Link>
@@ -76,10 +80,15 @@ const Teaser = props => {
           background: ${theme.color.neutral.white};
 
           :global(.gatsby-image-outer-wrapper) {
+            position: relative;
             overflow: hidden;
           }
           :global(.gatsby-image-outer-wrapper img) {
             z-index: -1;
+          }
+          :global(.tags-block) {
+            position: absolute;
+            bottom: 0;
           }
 
           &:not(:last-child):after {
@@ -130,6 +139,23 @@ const Teaser = props => {
             text-transform: uppercase;
             margin: ${theme.space.xs} ${theme.space.s} ${theme.space.xs} 0;
           }
+        }
+        
+        .tag {
+          border-radius: 3px;
+          padding: 0 3px;
+          color: ${theme.color.neutral.white};
+          letter-spacing: 1px;
+        }
+        
+        .tag-back {
+          border: 2px ${theme.color.green} solid;
+          background: ${theme.color.green};
+        }
+        
+        .tag-front {
+          border: 2px ${theme.color.violet} solid;
+          background: ${theme.color.violet};
         }
 
         p {
@@ -207,7 +233,7 @@ const Teaser = props => {
             padding: ${`calc(${theme.space.default} * 1.2) calc(${theme.space.default} * 2) 0`};
           }
           .meta {
-            padding: ${`calc(${theme.space.default} * 1.5) calc(${theme.space.default} * 2)
+            padding: ${`calc(${theme.space.default} * 0.5) calc(${theme.space.default} * 2)
               calc(${theme.space.default} * 0.5)`};
           }
           p {
@@ -216,7 +242,7 @@ const Teaser = props => {
           li {
             border-radius: ${theme.size.radius.small};
             box-shadow: 0 2px 5px 0 rgb(0 0 0 / 15%);
-            
+
             :global(.gatsby-image-wrapper) {
               transform: scale(1.0);
             }
@@ -231,7 +257,7 @@ const Teaser = props => {
                 transform: scale(1.1);
               }
               h1 {
-                color: ${theme.color.brand.primary};
+                opacity: 0.7;
               }
               :global(.arrow) {
                 opacity: 1;
