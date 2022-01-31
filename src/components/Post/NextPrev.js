@@ -4,6 +4,7 @@ import { Link } from "gatsby";
 
 import { FaArrowRight } from "react-icons/fa/";
 import { FaArrowLeft } from "react-icons/fa/";
+import { convertISODate, currDate } from "../../utils/helpers";
 
 const NextPrev = props => {
   const {
@@ -22,33 +23,39 @@ const NextPrev = props => {
 
   if (!nextSlug && !prevSlug) return (<span></span>); /* If neither prev nor next is available, don't put weird empty space there. */
 
+  const prevPrefixDate = prevPrefix || currDate() /* Intent: get date placeholder for viewing drafts. */
+  const prevDateStr = convertISODate(prevPrefixDate)
+
+  const nextPrefixDate = nextPrefix || currDate() /* Intent: get date placeholder for viewing drafts. */
+  const nestDateStr = convertISODate(nextPrefixDate)
+
   return (
     <React.Fragment>
       <div className="links">
-
         {nextSlug && (
           <Link to={nextSlug}>
             <span className="next-link-text">
               <h4>
-                {nextTitle} <time>{nextPrefix} </time>
+                {nextTitle} <time className="date">{nestDateStr}</time>
               </h4>
             </span>
-            <span className="next-arrow live-arrow">
+            <span className="next-prev-arrow live-arrow">
               <span className="arrow-body">
-                <span className="arrow-head" />
+                <span className="arrow-head next-arrow-head" />
               </span>
             </span>
-
           </Link>
         )}
         {prevSlug && (
           <Link to={prevSlug}>
-            <span className="live-arrow">
-              <FaArrowLeft />
+            <span className="next-prev-arrow live-arrow">
+              <span className="arrow-body">
+                <span className="arrow-head prev-arrow-head" />
+              </span>
             </span>
             <span className="prev-link-text">
               <h4>
-                {prevTitle} <time>{prevPrefix}</time>
+                {prevTitle} <time className="date">{prevDateStr}</time>
               </h4>
             </span>
           </Link>
@@ -65,8 +72,8 @@ const NextPrev = props => {
         .prev-link-text {
           color: &color-brand-primary;
         }
-        .next-arrow {
-          margin-left: 10px;
+        .next-prev-arrow {
+          margin: 0 10px;
           display: flex;
           height: 100%;
           min-height: 16px;
@@ -74,7 +81,7 @@ const NextPrev = props => {
           width: 32px;
           transition: width 300ms ease;
         }
-        .next-arrow:hover {
+        .next-prev-arrow:hover {
           width: 48px;
         }
         .arrow-body {
@@ -90,17 +97,27 @@ const NextPrev = props => {
           border-radius: 2px;
           width: 12px;
           position: absolute;
-          border-top: none;
-          border-left: none;
           height: 12px;
           transform: rotate(-45deg);
-          right: 0;
           top: -5px;
+        }
+        .next-arrow-head {
+          border-top: none;
+          border-left: none;
+          right: 0;
+        }
+        .prev-arrow-head {
+          border-bottom: none;
+          border-right: none;     
+          left: 0;
+        }
+        .date {
+          text-transform: lowercase;
         }
         .links {
           display: flex;
           flex-direction: column;
-          padding: ${theme.space.l} ${theme.space.m} ${theme.space.l};
+          padding: ${theme.space.l} 0;
           border-top: 1px solid ${theme.line.color};
           border-bottom: 1px solid ${theme.line.color};
           margin: ${theme.space.stack.l};

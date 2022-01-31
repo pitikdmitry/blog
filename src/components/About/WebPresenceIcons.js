@@ -1,69 +1,47 @@
 import React from "react"
 import theme from "../../theme/theme.yaml";
-import {FaGithub, FaStackOverflow, FaLinkedin, FaYoutube, FaTelegramPlane, FaInstagram,} from 'react-icons/fa'
+import { FaYoutube, FaTelegramPlane, FaInstagram } from 'react-icons/fa';
 import config from "../../../content/meta/config";
-import Codeforces from "../../images/svg-icons/codeforces.svg";
-import Unsplash from "../../images/svg-icons/unsplash.svg";
 
 const WebPresenceIcons = () => {
     return (
         <div className="wrapper">
             <div className="icons">
               <a href={config.authorYoutube} target="_blank"><FaYoutube/></a>
-              <a href={config.authorYoutube} target="_blank"><FaTelegramPlane/></a>
-              <a href={config.authorYoutube} target="_blank"><FaInstagram/></a>
+              <a href={config.authorYoutube} target="_blank" className="social-icon"><FaTelegramPlane/></a>
+              <a href={config.authorYoutube} target="_blank" className="social-icon"><FaInstagram/></a>
             </div>
             <style jsx>{`
             .wrapper {
-                text-align: center;
-                &:before {
-                  border-top: 1px solid #ecebea;
-                  content: "";
-                  height: 0;
-                  position: absolute;
-                  left: 50%;
-                  transform: translateX(-50%);
-                  bottom: 26px;
-                  transition: all 0.5s;
-                  width: 50%;
-                }
-                 &:after {
-                  border-top: 1px solid #ecebea;
-                  content: "";
-                  height: 0;
-                  position: absolute;
-                  left: 50%;
-                  transform: translateX(-50%);
-                  top: 18px;
-                  transition: all 0.5s;
-                  width: 50%;
-                }
-            }
-            .video-footer {
-              font-size: 40px;
+              text-align: center;
             }
             .icons {
-                display: inline-block;
-                font-size: 40px;
-                :global(svg) {
-                    margin: 10px;
-                    fill: ${theme.color.neutral.gray.footer} !important;
-                }
+              display: flex;
+              align-items: center;
+              font-size: 40px;
+              :global(svg) {
+                margin: 8px;
+                fill: ${theme.color.neutral.gray.footer} !important;
+              }
+            }
+            .social-icon {
+              :global(svg) {
+                width: 30px;
+                height: 30px;
+              }
             }
             @from-width tablet {
-                .icons {
-                    font-size: 60px;
-                }
+              .icons {
+                font-size: 40px;
+              }
             }
             @from-width desktop {
                 .icons :global(a svg) {
-                    margin-top: 20px;
                     transition: 500ms;
                 }
                 @media (hover: hover) {
                     .icons :global(a:hover svg) {
                       opacity: 0.7;
-
                     }
                 }
             }

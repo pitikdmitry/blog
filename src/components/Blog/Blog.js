@@ -37,7 +37,7 @@ const Blog = props => {
 
         @above tablet {
           .main {
-            padding: 0 ${`0 calc(${theme.space.default} * 1.5)`};
+            padding: 0;
           }
           ul {
             max-width: ${theme.text.maxWidth.tablet};

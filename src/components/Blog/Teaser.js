@@ -92,7 +92,7 @@ const Teaser = props => {
             bottom: 0;
           }
 
-          &:not(:last-child):after {
+          &:after {
             border-top: 1px solid ${theme.line.color};
             content: "";
             height: 0;
@@ -102,10 +102,6 @@ const Teaser = props => {
             transform: translateX(-50%);
             transition: all ${theme.time.duration.default};
             width: 50%;
-          }
-
-          &:last-child {
-            margin-bottom: 10px;
           }
         }
 

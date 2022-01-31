@@ -70,7 +70,6 @@ class Layout extends React.Component {
               position: relative;
             }
             main {
-              padding-bottom: 80px;
               background: #ffffff;
             }
           `}</style>
