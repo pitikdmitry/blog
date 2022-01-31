@@ -118,11 +118,13 @@ class Layout extends React.Component {
             }
             a {
               text-decoration: none;
-              color: #666;
+              color: #2c2823;
             }
+            // 105px - это высота футера!!!!
             main {
               width: auto;
               display: block;
+              min-height: calc(100vh - 105px);
             }
             table, th, td {
               border: 1px solid #DDD;

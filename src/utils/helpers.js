@@ -76,3 +76,17 @@ export function convertISODate(dateStr) {
     day.toString() + " " + convertMonth(dateObj.getMonth()) + " " + year.toString()
   );
 }
+
+//   value: number,
+//   tuple: [string, string, string],
+//   isValueHidden?: boolean
+
+// ex: pluralize(12, ['час', 'часа', 'часов']) // 12 часов
+export function pluralize(value, tuple, isValueHidden) {
+  const title =
+    tuple[
+      value % 100 > 4 && value % 100 < 20 ? 2 : [2, 0, 1, 1, 1, 2][value % 10 < 5 ? value % 10 : 5]
+    ];
+
+  return isValueHidden ? title : `${value} ${title}`;
+}

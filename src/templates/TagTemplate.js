@@ -7,6 +7,7 @@ import { ThemeContext } from "../layouts";
 import Article from "../components/Article";
 import Headline from "../components/Article/Headline";
 import List from "../components/List";
+import { pluralize } from "../utils/helpers";
 
 const TagTemplate = props => {
   const {
@@ -16,6 +17,9 @@ const TagTemplate = props => {
     }
   } = props;
 
+  const isFrontTag = tag === "фронтенд";
+  const postCount = pluralize(totalCount, ["пост", "поста", "постов"]);
+
   return (
     <React.Fragment>
       <ThemeContext.Consumer>
@@ -23,11 +27,10 @@ const TagTemplate = props => {
           <Article theme={theme}>
             <header>
               <Headline theme={theme}>
-                <span>Posts with tag</span> <FaTag />
-                {tag}
+                <span className={isFrontTag ? "tag front-tag" : "tag back-tag"}>{tag}</span>
               </Headline>
               <p className="meta">
-                <strong>{totalCount}</strong> post{totalCount > 1 ? "s " : " "} tagged:
+                <strong>{postCount}</strong>:
               </p>
               <List edges={edges} theme={theme} />
             </header>
@@ -36,6 +39,27 @@ const TagTemplate = props => {
       </ThemeContext.Consumer>
 
       <Seo />
+
+      {/* --- STYLES --- */}
+      <style jsx>{`
+        .tag {
+          display: inline-block;
+          border-radius: 3px;
+          padding: 0 3px;
+          color: #ffffff;
+          letter-spacing: 1px;
+          margin: 5px 10px 5px 0;
+          text-transform: uppercase;
+        }
+        .front-tag {
+          border: 2px #644DB3 solid;
+          background: #644DB3;
+        }
+        .back-tag{
+          border: 2px #00684A solid;
+          background: #00684A;
+        }
+        `}</style>
     </React.Fragment>
   );
 };
