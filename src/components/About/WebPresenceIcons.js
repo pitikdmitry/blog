@@ -1,6 +1,6 @@
 import React from "react"
 import theme from "../../theme/theme.yaml";
-import { FaGithub, FaStackOverflow, FaLinkedin, FaYoutube, FaYCombinator } from 'react-icons/fa'
+import {FaGithub, FaStackOverflow, FaLinkedin, FaYoutube, FaTelegramPlane, FaInstagram,} from 'react-icons/fa'
 import config from "../../../content/meta/config";
 import Codeforces from "../../images/svg-icons/codeforces.svg";
 import Unsplash from "../../images/svg-icons/unsplash.svg";
@@ -10,8 +10,8 @@ const WebPresenceIcons = () => {
         <div className="wrapper">
             <div className="icons">
               <a href={config.authorYoutube} target="_blank"><FaYoutube/></a>
-              <a href={config.authorYoutube} target="_blank"><FaYoutube/></a>
-              <a href={config.authorYoutube} target="_blank"><FaYoutube/></a>
+              <a href={config.authorYoutube} target="_blank"><FaTelegramPlane/></a>
+              <a href={config.authorYoutube} target="_blank"><FaInstagram/></a>
             </div>
             <style jsx>{`
             .wrapper {
@@ -63,7 +63,7 @@ const WebPresenceIcons = () => {
                 @media (hover: hover) {
                     .icons :global(a:hover svg) {
                       opacity: 0.7;
-                      
+
                     }
                 }
             }
