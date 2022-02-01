@@ -52,7 +52,7 @@
        .hoverableMainButton:hover {
             text-shadow: 0 0 5px #d35400;
             box-shadow: 0 0 50px 20px #d35400;
-        } 
+        }
 
         button:focus{
             outline: none;
@@ -123,8 +123,8 @@
             if (y < 0) {
                 y = 0
             }
-            cursor.style.top = y + "px"; 
-            cursor.style.left = x + "px"; 
+            cursor.style.top = y + "px";
+            cursor.style.left = x + "px";
         }
         var mouseMovedOnBackground = function(event) {
             const x = event.clientX
@@ -251,14 +251,14 @@
             freshRecording = []
             recordingStatus = "recording"
             prevTime = Date.now()
-            document.getElementById('recordButton').style.display = 'none'; 
+            document.getElementById('recordButton').style.display = 'none';
             document.getElementById('buttdiv').style.display = 'none';
             for (var j=REC_TIME; j>0; j-=1000) {
                 const bah = REC_TIME - j
                 setTimeout(() => console.log(bah / 1000), bah)
             }
             setTimeout(() => {
-                document.getElementById('buttdiv').style.display = 'block'; 
+                document.getElementById('buttdiv').style.display = 'block';
                 recordingStatus = false;
                 recordings.push(freshRecording)
                 console.log('finished recording');
@@ -317,7 +317,7 @@
     <img id="arrow" class="arrow" src="arrow_m.png" />
     <img id="pointer" class="pointer" src="pointer.png" />
 
-    <script async defer data-domain="attejuvonen.fi" src="https://plausible.io/js/plausible.js"></script>
-    
+    <script async defer data-domain="backender.ru" src="https://plausible.io/js/plausible.js"></script>
+
 </body>
 </html>

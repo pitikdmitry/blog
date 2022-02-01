@@ -1,30 +1,29 @@
 module.exports = {
-  siteTitle: "Cup of code", // <title>
-  shortSiteTitle: "Cup of code", // <title> ending for posts and pages
-  siteDescription: "",
-  siteUrl: "https://cupofcode.ru",
+  siteTitle: "backender.ru", // <title>
+  shortSiteTitle: "backender.ru", // <title> ending for posts and pages
+  siteDescription: "Роадмап бэкенд и фронтенд программиста",
+  siteUrl: "https://backender.ru",
   // pathPrefix: "",
   siteImage: "preview.jpg",
   siteLanguage: "ru",
 
   /* author */
-  authorName: "Atte Juvonen",
+  authorName: "Dmitry",
   authorTwitterAccount: "",
-  authorGithub: "https://github.com/baobabkoodaa",
-  authorStackoverflow: "https://stackexchange.com/users/5678032/atte-juvonen?tab=accounts",
-  authorLinkedin: "https://linkedin.com/in/atte-juvonen-86b886113",
-  authorCodeforces: "https://codeforces.com/profile/baobab",
-  authorYoutube: "https://www.youtube.com/channel/UCfHqfHoSYL0V_fXA_JQkeLw?view_as=subscriber",
-  authorUnsplash: "https://unsplash.com/@baobabkoodaa",
-  authorYCombinator: "https://news.ycombinator.com/user?id=baobabKoodaa",
+  authorGithub: "https://github.com/",
+  authorStackoverflow: "https://stackexchange.com/",
+  authorLinkedin: "https://linkedin.com/",
+  authorYoutube: "https://www.youtube.com/channel/UCJ5niaSEM0TqxLpRMzQ1-wQ?view_as=subscriber",
+  authorTelegram: "",
+  authorInstagram: "",
 
   /* header text */
-  headerTitle: "cup of code",
-  headerSubTitle: "cup of code",
+  headerTitle: "backender.ru",
+  headerSubTitle: "изучи веб-разработку здесь и сейчас",
 
   /* manifest.json */
-  manifestName: "cup of code",
-  manifestShortName: "cup of code", // max 12 characters
+  manifestName: "backender.ru",
+  manifestShortName: "backender.ru", // max 12 characters
   manifestStartUrl: "/",
   manifestBackgroundColor: "#F9F7F4",
   manifestThemeColor: "#A2755E",

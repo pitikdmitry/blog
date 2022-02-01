@@ -2,7 +2,7 @@
 title: Попробуй написать код
 tags: ["бэкенд", "фронтенд"]
 cover: client-server.jpg
-author: cup of code
+author: backender
 number: 40
 previewtext: код
 ---

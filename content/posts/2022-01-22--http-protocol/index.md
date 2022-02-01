@@ -2,7 +2,7 @@
 title: Протокол HTTP
 tags: ["бэкенд", "фронтенд"]
 cover: client-server.jpg
-author: cup of code
+author: backender
 number: 90
 previewtext: Протокол HTTP - это набор правил, с помощью которого клиент и сервер понимают друг друга. Давай разбираться подробнее!
 ---

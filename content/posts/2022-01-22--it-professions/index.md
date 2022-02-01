@@ -2,7 +2,7 @@
 title: Направления в IT
 tags: ["бэкенд", "фронтенд"]
 cover: client-server.jpg
-author: cup of code
+author: backender
 number: 30
 previewtext: Какие есть виды программистов? В этой статье мы подробно разберем структуру команды программистов
 ---

@@ -2,7 +2,7 @@
 title: Сколько учиться на программиста
 tags: ["бэкенд", "фронтенд"]
 cover: client-server.jpg
-author: cup of code
+author: backender
 number: 10
 previewtext: Делюсь историей того, как я стал программистом и отвечаю на популярные вопросы
 ---

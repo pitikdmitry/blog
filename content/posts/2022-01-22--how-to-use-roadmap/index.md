@@ -2,7 +2,7 @@
 title: Как пользоваться роадмапом
 tags: ["бэкенд", "фронтенд"]
 cover: client-server.jpg
-author: cup of code
+author: backender
 number: 20
 previewtext: О том, что интересного можно найти на этом сайте
 ---
