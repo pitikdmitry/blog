@@ -78,6 +78,7 @@ exports.createPages = ({ graphql, actions }) => {
                       frontmatter {
                           title
                           tags
+                          previewtext
                           cover {
                               children {
                                   ... on ImageSharp {
