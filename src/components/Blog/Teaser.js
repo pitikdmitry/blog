@@ -18,6 +18,7 @@ const Teaser = props => {
         title,
         tags,
         author,
+        previewtext,
         cover: {
           children: [{ fluid }]
         }
@@ -60,7 +61,7 @@ const Teaser = props => {
                {dateStr}
             </span>
           </p>
-          <p>{excerpt}</p>
+          <p>{previewtext}</p>
         </Link>
       </li>
 

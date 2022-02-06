@@ -78,6 +78,7 @@ exports.createPages = ({ graphql, actions }) => {
                       frontmatter {
                           title
                           tags
+                          previewtext
                           cover {
                               children {
                                   ... on ImageSharp {
@@ -213,8 +214,7 @@ exports.createPages = ({ graphql, actions }) => {
         // create backend page
         const backendPostsPerPage = 3;
         var backendPosts = [...posts];
-        backendPosts = backendPosts.filter(item => item.node.frontmatter.tags.includes("backend"));
-
+        backendPosts = backendPosts.filter(item => item.node.frontmatter.tags.includes("бэкенд"));
         var backendNumPages = Math.ceil(backendPosts.length / backendPostsPerPage);
 
         _.times(backendNumPages, i => {

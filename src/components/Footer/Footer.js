@@ -10,7 +10,8 @@ const Footer = props => {
   return (
     <React.Fragment>
       <footer className="footer">
-        <span className="footer-text">Тут текст о том что все права при себе</span>
+        <span className="footer-text">&copy;
+          {new Date().getFullYear()} Размещение материалов с данного сайта на других платформах запрещено</span>
         <WebPresenceIcons />
       </footer>
 
