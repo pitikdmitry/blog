@@ -210,7 +210,7 @@ const Teaser = props => {
           li {
             margin: ${`calc(${theme.space.default}) 0 calc(${theme.space.default} * 5)`};
             padding: 0 0 ${`calc(${theme.space.default} * 2)`};
-            max-width: 450px;
+            width: 450px;
 
             &::after {
               bottom: ${`calc(${theme.space.default} * -1.5)`};
