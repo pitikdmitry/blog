@@ -238,6 +238,16 @@ exports.createPages = ({ graphql, actions }) => {
             }
           });
         });
+
+        createPage({
+          path: `/`,
+          component: path.resolve("./src/templates/main.js"),
+          context: {
+            slug: `/main/`,
+            source: "pages"
+          }
+        });
+
       })
     );
   });

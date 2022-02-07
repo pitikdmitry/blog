@@ -22,19 +22,13 @@ class Header extends React.Component {
     }
   };
 
-  getHeaderSize = () => {
-    const fixed = this.state.fixed ? "fixed" : "";
-    const homepage = this.props.path === "/" ? "homepage" : "";
-    return  `${fixed} ${homepage}`; // `${fixed} ${homepage}` (Change me if you want a more "lively" navbar)
-  };
-
   render() {
     const { path, theme } = this.props;
     const { fixed } = this.state;
 
     return (
       <React.Fragment>
-        <header className={`header ${this.getHeaderSize()}`}>
+        <header className="header">
           <Link to="/" className="logoType">
             <div className="logo">
               <img src={config.gravatarImgMd5=="" ? avatar : config.gravatarImgMd5 } alt={config.siteTitle} />

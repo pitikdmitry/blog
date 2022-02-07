@@ -228,14 +228,14 @@ const Teaser = props => {
           }
           h1 {
             font-size: 2em;
-            padding: ${`calc(${theme.space.default} * 1.2) calc(${theme.space.default} * 2) 0`};
           }
           .meta {
-            padding: ${`calc(${theme.space.default} * 0.5) calc(${theme.space.default} * 2)
+            padding: ${`calc(${theme.space.default} * 0.5) ${theme.space.default}
               calc(${theme.space.default} * 0.5)`};
           }
           p {
-            padding: ${`0 calc(${theme.space.default} * 2)`};
+            padding: ${`0 ${theme.space.default} 0`};
+
           }
           li {
             border-radius: ${theme.size.radius.small};
