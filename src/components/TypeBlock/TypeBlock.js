@@ -9,12 +9,12 @@ const TypeBlock = props => {
   const items = [
     {
       title: "Бекенд",
-      description: "allala lalal lalal",
+      description: "все то, что происходит на сервере",
       label: ETypeItemLabel.BACK,
     },
     {
       title: "Фронтенд",
-      description: "allala lalal lalal",
+      description: "а это видит пользователь",
       label: ETypeItemLabel.FRONT,
     }
   ];

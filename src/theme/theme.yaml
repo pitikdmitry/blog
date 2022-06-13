@@ -164,8 +164,8 @@ blog:
     hoverColor: *color-gray-10
 header:
   height:
-    default: 50px
-    fixed: 50px;
-    homepage: 50px;
+    default: 80px
+    fixed: 80px;
+    homepage: 80px;
     initial: 80px;
 

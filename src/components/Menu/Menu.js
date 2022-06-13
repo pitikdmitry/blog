@@ -16,6 +16,7 @@ class Menu extends React.Component {
       { to: "/backend", label: "Бэкенд", icon: FaServer },
       { to: "/frontend", label: "Фронтенд", icon: FaChalkboard },
       { to: "/articles", label: "Все статьи", icon: FaBookReader },
+      { to: "/terms", label: "Термины", icon: FaBookReader },
     ];
 
     this.renderedItems = []; // will contain references to rendered DOM elements of menu
