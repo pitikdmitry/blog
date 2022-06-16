@@ -212,31 +212,22 @@ exports.createPages = ({ graphql, actions }) => {
         });
 
         // create backend page
-        const backendPostsPerPage = 3;
-        var backendPosts = [...posts];
-        backendPosts = backendPosts.filter(item => item.node.frontmatter.tags.includes("бэкенд"));
-        var backendNumPages = Math.ceil(backendPosts.length / backendPostsPerPage);
+        createPage({
+          path: `/backend`,
+          component: path.resolve("./src/templates/backend.js"),
+          context: {
+            slug: `/backend/`,
+            source: "pages"
+          }
+        });
 
-        _.times(backendNumPages, i => {
-          const pathSuffix = (i>0 ? i+1 : "");
-
-          // Get posts for this page
-          const startInclusive = i * backendPostsPerPage;
-          const endExclusive = startInclusive + backendPostsPerPage;
-          const pagePosts = backendPosts.slice(startInclusive, endExclusive)
-
-          createPaginationJSON(`public/paginationJson/backend/`, pathSuffix, pagePosts);
-          createPage({
-            path: `/backend/`+pathSuffix,
-            component: path.resolve("./src/templates/backend.js"),
-            context: {
-              backendNumPages,
-              currentPage: i + 1,
-              initialPosts: pagePosts,
-              slug: `/backend/`,
-              source: "pages"
-            }
-          });
+        createPage({
+          path: `/frontend`,
+          component: path.resolve("./src/templates/frontend.js"),
+          context: {
+            slug: `/frontend/`,
+            source: "pages"
+          }
         });
 
         createPage({

@@ -6,14 +6,12 @@
 
 import React from "react"
 
-import { GlobalStateBackend, GlobalStateArticles } from "./src/components/GlobalState/GlobalState.js"
+import { GlobalState } from "./src/components/GlobalState/GlobalState.js"
 
 export const wrapRootElement = ({ element }) => {
     return (
-        <GlobalStateArticles>
-          <GlobalStateBackend>
-              {element}
-          </GlobalStateBackend>
-        </GlobalStateArticles>
+      <GlobalState>
+        {element}
+      </GlobalState>
     )
 }

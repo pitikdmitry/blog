@@ -51,11 +51,11 @@ const TagTemplate = props => {
           margin: 5px 10px 5px 0;
           text-transform: uppercase;
         }
-        .front-tag {
+        .back-tag {
           border: 2px #644DB3 solid;
           background: #644DB3;
         }
-        .back-tag{
+        .front-tag{
           border: 2px #00684A solid;
           background: #00684A;
         }

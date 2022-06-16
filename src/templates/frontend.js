@@ -6,9 +6,9 @@ import Article from "../components/Article";
 import Page from "../components/Page";
 import { ThemeContext } from "../layouts";
 import View from "../components/Blog/View";
-import RoadMapSvg from "../../content/pages/2--backend/roadmap.svg";
+import RoadMapSvg from "../../content/pages/3--frontend/roadmap.svg";
 
-const Backend = props => {
+const Frontend = props => {
   const page = props.data.page;
   const fil = props.data.file.name;
 
@@ -18,7 +18,7 @@ const Backend = props => {
         {theme => (
           <Article theme={theme}>
             <Page page={page} theme={theme} />
-            <RoadMapSvg />
+            {/*<RoadMapSvg />*/}
           </Article>
         )}
       </ThemeContext.Consumer>
@@ -27,15 +27,15 @@ const Backend = props => {
     );
 };
 
-Backend.propTypes = {
+Frontend.propTypes = {
   data: PropTypes.object.isRequired
 };
 
-export default Backend;
+export default Frontend;
 
 //eslint-disable-next-line no-undef
 export const pageQuery = graphql`
-  query PageByPathBackend($slug: String!) {
+  query PageByPathFrontend($slug: String!) {
     page: markdownRemark(fields: { slug: { eq: $slug } }) {
       id
       html

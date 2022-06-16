@@ -1,7 +1,7 @@
 ---
 title: Как пользоваться роадмапом
 tags: ["бэкенд", "фронтенд"]
-cover: client-server.jpg
+cover: roadmap.png
 author: backender
 number: 20
 previewtext: О том, что интересного можно найти на этом сайте
