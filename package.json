@@ -1,9 +1,9 @@
 {
-  "name": "@baobabkoodaa/blog",
-  "version": "0.9.0",
-  "author": "Baobab Koodaa",
-  "description": "Feature-rich blog with streamlined design.",
-  "license": "MIT",
+  "name": "@pitikdmitry/blog",
+  "version": "1.0",
+  "author": "dm p",
+  "description": "blog where i study web development",
+  "license": "",
   "dependencies": {
     "child_process": "^1.0.2",
     "electron": "^16.0.7",

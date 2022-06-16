@@ -1,7 +1,7 @@
 ---
 title: Статические и динамические сайты
 tags: ["бэкенд", "фронтенд"]
-cover: client-server.jpg
+cover: static-dynamic-queries.png
 author: backender
 number: 60
 previewtext: Мы начнем нашу беседу с статических сайтов, на которых работал интернет в 2000-х и перейдем к принципу работы современного интернета

@@ -33,6 +33,8 @@ brown: #A2755E
 dark-grey: #1F1F1F
 
 You have to manually crop images to 2.222 aspect ratio.
+4096
+1845
 
 ![img.png](img.png)
 https://cupofjo.com/
