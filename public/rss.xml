@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[backender.ru]]></title><description><![CDATA[Роадмап бэкенд и фронтенд программиста]]></description><link>https://backender.ru</link><generator>GatsbyJS</generator><lastBuildDate>Fri, 17 Jun 2022 18:01:45 GMT</lastBuildDate><item><title><![CDATA[Протокол HTTP]]></title><description><![CDATA[Привет! Рад тебя видеть на очень важном и одновременно простом уроке про протокол HTTP. Мы уже достаточно много знаем про взаимодействие…]]></description><link>https://backender.ru/http-protocol/</link><guid isPermaLink="false">https://backender.ru/http-protocol/</guid><pubDate>Wed, 23 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Привет! Рад тебя видеть на очень важном и одновременно простом уроке про &lt;em&gt;протокол HTTP&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Мы уже достаточно много знаем про взаимодействие фронтенда и бэкенда,
+Те, кто читал статью &lt;a href=&quot;https:///static-dynamic-websites/&quot; target=&quot;_blank&quot;&gt;Статические и динамические запросы&lt;/a&gt; уже знают,
+что запрос - это текстовая строка, в которой содержится информация о том, какую страницу или какие данные мы хотим получить с сервера.&lt;/p&gt;
+&lt;p&gt;В этой статье мы подробно разберем из чего состоит протокол HTTP и как с помощью него клиент и сервер понимают друг друга.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Как устроен фронтенд]]></title><description><![CDATA[В предыдущих статьях мы выяснили, что фронтенд разработчик программирует HTML файлы.
+Когда пользователи открывают сайт, то браузер делает…]]></description><link>https://backender.ru/what-is-frontend/</link><guid isPermaLink="false">https://backender.ru/what-is-frontend/</guid><pubDate>Thu, 17 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;В предыдущих статьях мы выяснили, что фронтенд разработчик программирует HTML файлы.
+Когда пользователи открывают сайт, то браузер делает запрос за HTML сайтом на бэкенд сервер.&lt;/p&gt;
+&lt;h2&gt;Структура HTML файла&lt;/h2&gt;
+&lt;p&gt;Про HTML мы уже слышали в статье &lt;a href=&quot;https://backender.ru/client-server-arhitecture&quot; target=&quot;_blank&quot;&gt;Клиент-серверная архитектура&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Основные правила HTML файла:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Файл состоит из тегов, каждый тег пишется в угловых скобках &lt;code class=&quot;language-text&quot;&gt;&amp;lt;div&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Большинство тегов должны указываться в паре: открывающий &lt;code class=&quot;language-text&quot;&gt;&amp;lt;div&amp;gt;&lt;/code&gt; и закрывающий тег &lt;code class=&quot;language-text&quot;&gt;&amp;lt;/div&amp;gt;&lt;/code&gt; (начинается с символа ”/“)&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Теги вложены друг в друга и образовывают древовидную структуру, они должны закрываться в той же последовательности как и открывались&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;html&quot;&gt;&lt;pre class=&quot;language-html&quot;&gt;&lt;code class=&quot;language-html&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;body&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;div&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+text
+&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;div&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;body&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;У многих тегов можно указывать атрибуты, которые модифицируют поведение этого тега &lt;code class=&quot;language-text&quot;&gt;&amp;lt;div class=&amp;quot;class-1&amp;quot;&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Внутри любого браузера содержится “браузерный движок”, который умеет парсить и отображать HTML файлы.
+Под движком понимают программный код, который написала команда создателей браузера.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Парсить - этот термин часто используют программисты, происходит от английского слова parse. Означает анализировать синтакс файла.
+Парсят файлы программы. То есть парсить HTML файл, это означает, что программа считает файл и проверит его синтакс&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Давайте создадим наш первый HTML файл!&lt;/p&gt;
+&lt;p&gt;На примере стандартная схема любого HTML файла.
+Внутри тега &lt;code class=&quot;language-text&quot;&gt;&amp;lt;head&amp;gt;&lt;/code&gt; указывается вспомогательная информация, которая не видна пользователю.
+А внутри тега &lt;code class=&quot;language-text&quot;&gt;&amp;lt;body&amp;gt;&lt;/code&gt; находится основное содержимое веб страницы, которое видит пользователь.&lt;/p&gt;
+&lt;p&gt;Bulletpoints
+Как работает фронтенд&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Что такое бэкенд]]></title><description><![CDATA[Привет! Наконец-то мы добрались до изучения “сердца” веб-приложений, а именно серверной части. Нам уже известно, что веб-сервер - это…]]></description><link>https://backender.ru/what-is-backend/</link><guid isPermaLink="false">https://backender.ru/what-is-backend/</guid><pubDate>Wed, 09 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Привет! Наконец-то мы добрались до изучения “сердца” веб-приложений, а именно серверной части.&lt;/p&gt;
+&lt;p&gt;Нам уже известно, что веб-сервер - это программа, которая умеет принимать и отвечать на запросы клиентов.
+У веб-сервера есть файл конфигурации (файл с настройками), в котором сказано, как себя вести при запросе на тот или иной URL.&lt;/p&gt;
+&lt;p&gt;Вот вам примера файла конфигурации (он немного не настоящий, но главное - смысл)&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;python&quot;&gt;&lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;urlpatterns &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
+    path&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;pictures/&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; pictures&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;html&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; статический запрос&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; указан файл&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; который надо вернуть
+    path&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;api/news/&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; views&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;get_news&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; динамический запрос&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; указана функция&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; которую надо вызвать
+    path&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;api/weather/&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; views&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;get_weather&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; динамический запрос&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; указана функция&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; которую надо вызвать
+&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Как мы видим, статические и динамические запросы описаны одинаково.
+Разница лишь в том, что для статических запросов отдается файл, а для динамических вызывается какая-то функция.&lt;/p&gt;
+&lt;p&gt;Эти функции описывает &lt;em&gt;бэкенд программист&lt;/em&gt;.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Бэкенд разработчик - это программист, который пишет функции обработчики для каждого из динамических запросов.
+Функции обработчики - это программный код, в котором обычно содержится логика похода в базу данных за свежими данными,
+проверка авторизации и т.п.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;Что такое API простыми словами&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;API&lt;/strong&gt; (Application Programming Interface) - это набор URL, для которых бэкенд разработчик написал функции-обработчики запросов.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Когда говорят про API - то обычно имеют в виду только динамические запросы.
+С нашим файлом конфигурации веб-сервер будет иметь следующий API:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;api/news/
+api/weather/&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;Backend это&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Бэкендом сайта называют все, что происходит на сервере. То есть веб-сервер и функции,
+которые обрабатывают динамические запросы (бэкенд код)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;В одной из следующих статей мы напишем свой собственный бэкенд!&lt;/p&gt;
+&lt;h2&gt;Языки программирования для бэкенда&lt;/h2&gt;
+&lt;p&gt;Каждый язык программирования имеет свои особенности, я бы отметил следующие:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;работа с памятью&lt;/li&gt;
+&lt;li&gt;производительность программ&lt;/li&gt;
+&lt;li&gt;скорость написания кода&lt;/li&gt;
+&lt;li&gt;сфера применения&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;*Java&lt;/strong&gt; - наиболее сложный в освоении язык из нашего списка. Появился в далеком 1995 году.
+В веб-разработке Java используют для написания банковских приложений и мобильных приложений для
+Android OS (клиентская часть андроид приложений, то есть та часть, которая устанавливается на смартфон).
+До сих пор считаю перспективным для освоения языком.
+&lt;strong&gt;*PHP&lt;/strong&gt; - на php зарождалось веб-программирование и до сих пор много сайтов на нем работает.
+Но количество вакансий на данном ЯП снижается и я не рекомендую его к изучению.
+&lt;strong&gt;*GO&lt;/strong&gt; - современный и быстрый язык программирования, разработанный компанией Google.
+Средний по сложности, очень быстрый по производительности.
+&lt;strong&gt;*Python&lt;/strong&gt; - python имеет очень широкое применение. Один из самых простых языков, отлично подходит новичкам.
+Сам код работает достаточно медленно, поэтому python плохо подходит для написания
+высоко нагруженных веб-приложений с большим количество пользователем.
+Зато скорость разработки на этом языке одна из самых высоких!&lt;/p&gt;
+&lt;p&gt;Для того чтобы познакомиться с веб-программированием подходит любой из данных языков.
+На практических уроках данного сайта я буду использовать &lt;code class=&quot;language-text&quot;&gt;python&lt;/code&gt;,
+так как его код легко читать, даже не зная языка.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Выбор языка программирования для будущей профессии&lt;/strong&gt;. Стоит обратить количество вакансий на том или ином языке,
+вот к примеру график за 2021 год.&lt;/p&gt;
+&lt;p&gt;Также стоит оценить перспективы языка, количество вакансий на PHP скорее всего будет уменьшаться,
+так как многие компании переписывают свой код на более современные языки.&lt;/p&gt;
+&lt;p&gt;Количество вакансий на GO будет только расти, язык только начинает набирать популярность.&lt;/p&gt;
+&lt;p&gt;Многие компании не требуют знания конкретного языка программирования для трудоустройства (В основном это крутые крупные компании).
+На собеседованиях разрешается писать код на любом языке, важно именно качество кода.&lt;/p&gt;
+&lt;p&gt;Предполагается, что язык программирования - это всего лишь инструмент, который вы сможете освоить в первые 2-3 недели работы.&lt;/p&gt;
+&lt;h2&gt;Бэкенд фреймворки&lt;/h2&gt;
+&lt;p&gt;Бэкенд фреймворк представляет собой библиотечный код, который содержит множество удобных и полезных функций для реализации АПИ.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;Библиотеки в программировании&lt;/em&gt; - это набор готовых функций, которые реализовал другой программист и вы это просто можете использовать у себя в коде.
+В каждом языке программирование есть множество библиотек.
+Например, библиотека для работы с массивами или библиотека для подключения к базе данных.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Бэкенд фреймворк умеет:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Во-первых, бэкенд фреймворк является связующим звеном между веб-сервером и АПИ функциями, которые пишет бэкенд программист.
+Внутри фреймворков реализована низкоуровневая работа с протоколами, бэкенд разработчику просто надо описать функции-обработчики.
+На практическом уроке по реализации АПИ вы сами увидите на сколько это легко!
+PIC веб сервер gunicorn FLASK обработчики бекенд программиста&lt;/li&gt;
+&lt;li&gt;Содержит множество полезных функций для реализации АПИ: функции для работы с запросом от клиента, функции для возврата ответа клиенту, функции для работы с JSON документами и так далее.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Выбор фреймворка для своего проекта - это очень важно,
+так как огромная часть вашего кода будет использовать его функции и переписать код на другой фреймворк будет весьма не просто.
+Поэтому стоит внимательно изучить возможности и особенности всех популярных фреймворков в выбранном вами языке программирования.&lt;/p&gt;
+&lt;p&gt;У каждого языка программирования обычно 2-3 популярных бэкенд фреймворка.
+Наиболее популярные фреймворки на python: Flask, Django, aiohttp.
+На практических занятиях мы будем использовать Flask так как он самый простой :)&lt;/p&gt;
+&lt;p&gt;У каждого фреймворка есть понятная документация, в которой сказано как создать бэкенд приложение.&lt;/p&gt;
+&lt;h2&gt;Frontend это&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Фронтендом сайта называют программный код в виде HTML, CSS, JS файлов.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Напомню, что сами файлы хранятся на бэкенд сервере.
+Браузер пользователя получает их с сервера, когда пользователь открывает страницу.&lt;/p&gt;
+&lt;h3&gt;Схема взаимодействия фронтенда и бэкенда&lt;/h3&gt;
+&lt;p&gt;Немного изменим нашу старую схему, вооружившись новыми знаниями.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Клиент открывает сайт в браузере, получает в ответ HTML, CSS, JS файлы&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Браузер отображает сайт клиенту&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Клиент использует сайт,&lt;/li&gt;
+&lt;li&gt;*&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Клиент нажимает на ссылку, которая является переходом на новую страницу&lt;/li&gt;
+&lt;li&gt;браузер отправляет запрос за новой страницей (новыми HTML, CSS, JS файлами)&lt;/li&gt;
+&lt;li&gt;сервер отдает новые html, css, js файлы&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Ветвь 2:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;клиент нажимает на кнопку, которая с помощью JS кода отправляет динамический запрос за данными на бэкенд&lt;/li&gt;
+&lt;li&gt;бэкенд вызывает АПИ&lt;/li&gt;
+&lt;li&gt;поход в баху данных&lt;/li&gt;
+&lt;/ol&gt;</content:encoded></item><item><title><![CDATA[Статические и динамические сайты]]></title><description><![CDATA[Привет! В предыдущей статье мы узнали основы клиент-серверной архитектуры.
+Мы уже знаем, что когда клиент делает первый запрос на сервер, то…]]></description><link>https://backender.ru/static-dynamic-websites/</link><guid isPermaLink="false">https://backender.ru/static-dynamic-websites/</guid><pubDate>Sat, 05 Mar 2022 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Привет! В предыдущей статье мы узнали основы клиент-серверной архитектуры.
+Мы уже знаем, что когда клиент делает первый запрос на сервер, то сервер возвращает нам HTML страницу сайта.&lt;/p&gt;
+&lt;p&gt;На самом деле для того, чтобы отвечать на запросы клиента на сервере запущена специальная программа, которая называется &lt;em&gt;веб-сервер&lt;/em&gt;.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Веб-сервер - это программа, которую программисты установили и настроили на своем сервере так, чтобы она отдавала данные клиентам&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;PIC, где отмечен веб сервер&lt;/p&gt;
+&lt;p&gt;Как веб-сервер понимает, какие данные ему отдать в ответ клиенту?&lt;/p&gt;
+&lt;p&gt;Как мы помним, запрос - это текстовая строка, которую формирует клиент (тот самый протокол HTTP). Внутри запроса содержится информация о том, какую страницу или данные мы хотим получить с сервера.
+Эта информация передается в так называемом &lt;em&gt;URL&lt;/em&gt;.
+&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 541px;&quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/7a9538f31b615e9dbaa90799910ded28/50336/img.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 32.71719038817005%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/svg+xml,%3csvg%20xmlns=\&apos;http://www.w3.org/2000/svg\&apos;%20width=\&apos;400\&apos;%20height=\&apos;131\&apos;%3e%3cpath%20d=\&apos;M0%2066c0%2064%200%2065%202%2065s2-1%202-65C4%201%204%200%202%200S0%201%200%2066m314-27c0%2015%200%2016-2%2016-8-4-50-3-77%201-17%202-42%201-53-2-10-3-17-3-30-1-13%203-44%203-66%201-23-3-35-2-61%201h-6V44c0-7%200-11-1-10l-1%2011v11l-4%201c-6%200-7%201-6%209l1%206v-6c0-4%200-5%203-5l4-2c2%200%202%201%202%207%200%207%200%207-2%205-3-4-4-2-1%202%203%206%204%206%208%201s3-7-1-2l-3%203%201-8v-9a214%20214%200%200166-2%20350%20350%200%200086-2c23%206%2044%207%2071%203%2019-3%2058-3%2067-1%204%201%205%202%205%205%200%204-1%205-6%205l-15%201c-27%204-47%203-65-2l-8-2-10%202c-14%203-45%204-68%202a265%20265%200%2000-82%205h7c6-3%2042-6%2057-5a373%20373%200%200082%200c9-1%2014-1%2029%202%2014%203%2034%203%2059%200l19-2v4l-1%201-2-1v2c3%206%205%206%208%201%202-3%202-4-1-1-2%201-2%201-2-2s0-4%203-4c5-1%205-1%205%202%201%202%201%201%201-2s0-5-1-4c0%203-8%203-8%200%200-4%201-5%205-4%205%200%205-1%200-3l-3-1-1-16-1-17-1%2017m60-17l-1%203v3h8c7%200%208%200%208-2s0-2%202%200c1%202%205%203%205%201h1c0%202%203%201%203-2s-2-3-3%200l-3%201v-1c2-2%201-4-1-2h-5c-2%200-3%200-3%202h-1c0-2-6-3-6-1l-1%201-1-1-2-2m-4%2012l-1%2017v18l-6-2-22-1-16-1%2013%201c23%202%2025%202%2028%208%204%205%204%205%208%200s3-7-1-2l-3%202%202-2v-2l-1-19c0-16%200-20-1-17m-44%2050c0%206%201%208%202%204l1-2v2c1%202%203%203%203%201l2-2%201%202%201%201%201-1%203-2v-7c0-2-2-3-2-1l-1%201-2-1-2%201c-2%201-3%202-2%203v2c-2%201-3%200-3-3l-1-4-1%206M19%2080l-1%202v2l1%204%201%203%201-4c0-3%204-5%204-1l1%202v2c0%202%202%200%202-3%200-2%201-3%202-3l1%204v4H19L7%2093h12l12%201h1a10482%2010482%200%2001330-1l17-1h-34l2-2c2-2%203-2%204-1%202%202%205%202%206-2s-4-7-6-3l-2%202v-2l-4-2c-3%200-3%200-3%205v5h-26l-27-1%202-3%201-4c0-2%200-2-2%200-1%202-2%202-3%200l-3-2-2-1h-3v3l1%203%201%203%201-3%201-3c2%200%204%203%204%206v2H160c-90%200-127%200-125-1%205-3%203-9-3-9l-5-1c-1-2-1-2-2-1%200%203-3%202-5%200h-1m351%2018c-17%205-59%207-93%204-19-2-62-1-74%202-10%201-14%201-30-2-17-3-44-3-69%200a409%20409%200%2001-97-2l8%203c19%205%2053%205%2099%201a205%20205%200%200169%204%20385%20385%200%200197-2c30%202%2034%202%2050%201%2031-2%2051-6%2046-9h-6\&apos;%20fill=\&apos;%23f9ebd2\&apos;%20fill-rule=\&apos;evenodd\&apos;/%3e%3c/svg%3e&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;img.png&quot;
+        title=&quot;img.png&quot;
+        src=&quot;/static/7a9538f31b615e9dbaa90799910ded28/50336/img.png&quot;
+        srcset=&quot;/static/7a9538f31b615e9dbaa90799910ded28/9ec3c/img.png 200w,
+/static/7a9538f31b615e9dbaa90799910ded28/c7805/img.png 400w,
+/static/7a9538f31b615e9dbaa90799910ded28/50336/img.png 541w&quot;
+        sizes=&quot;(max-width: 541px) 100vw, 541px&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt; подписать, где “сервер какой компании”, где “путь до ресурса”&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;URL - unified resource locator (унифицированный указатель ресурса). В строке URL содержится информация о тех данных, которые мы хотим получить с сервера.
+Там есть доменное имя, то есть то, с какого сервера мы хотим загрузить данные. И также есть путь до ресурса, то есть то, какую HTML страницу мы хотим получить.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Пример: Веб-сервер сайта yandex.ru настроен таким образом, что на запрос &lt;a href=&quot;https://yandex.ru/&quot;&gt;https://yandex.ru/&lt;/a&gt; он отдает главную страницу, а на запрос &lt;a href=&quot;https://yandex.ru/pictures&quot;&gt;https://yandex.ru/pictures&lt;/a&gt; отдает страницу с картинками.&lt;/p&gt;
+&lt;h2&gt;Статические запросы&lt;/h2&gt;
+&lt;p&gt;В начале 2000-х сайты в интернете работали так, как мы описали выше.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Клиент делал запрос за главной страницей&lt;/li&gt;
+&lt;li&gt;Сервер отдает готовую HTML страницу&lt;/li&gt;
+&lt;li&gt;Клиент пользовался страницей и нажимал на какую-нибудь ссылку на странице&lt;/li&gt;
+&lt;li&gt;Браузер отправлял запрос на сервер за новой HTML страницей&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Статические запросы - это те запросы, на которые веб-сервер отдает в ответе заранее заготовленный файл. Этот файл он хранит в файловой системе сервера.
+Чаще всего речь об HTML, CSS, JS файлах.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;Динамические запросы&lt;/h2&gt;
+&lt;p&gt;Представим, что у нас есть сайт с новостями. Мы прочитали первую страницу новостей и хотим открыть вторую.&lt;/p&gt;
+&lt;p&gt;PIC нарисовать страницу с новостями и пагинацией, палец(cursor pointer) нажимает на вторую страницу&lt;/p&gt;
+&lt;p&gt;Чтобы открыть вторую страницу, мы должны отправить запрос на сервер за новой HTML страницей.&lt;/p&gt;
+&lt;p&gt;Но можно заметить, что вторая страница будет очень похожа на первую и изменятся только заголовки новостей.
+Становится очевидно, что запрашивать целую HTML страницу смысла нет и нам достаточно получить файлик,
+в котором просто будут заголовки статей, а затем их можно подставить в старый HTML файл.&lt;/p&gt;
+&lt;p&gt;Так и появились динамические запросы…&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Под динамическими запросами понимают запросы на сервер, ответ которых серверу заранее не известен.
+Ответ на запрос начинает формироваться в тот момент, когда сервер получил запрос от клиента.
+Чаще всего в этот момент сервер либо идет за свежими данными в &lt;strong&gt;базу данных&lt;/strong&gt;, либо что-то вычисляет с помощью программного кода&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;PIC картинка с запросом за первой страницей новостей (клиент-сервер), за второй страницей новостей.&lt;/p&gt;
+&lt;p&gt;Запрос за новостями - это как раз динамический запрос. На клиенте динамический запрос обычно формируется за счет Javascript, но о работе клиента поговорим в следующий раз.&lt;/p&gt;
+&lt;p&gt;Запрос за динамическими данными выглядит точно так же, как и запрос за статическими.
+Веб-сервер будет заранее настроен таким образом, что на запрос &lt;a href=&quot;https://yandex.ru/news&quot;&gt;https://yandex.ru/news&lt;/a&gt; он вернет HTML страницу,
+а на запрос &lt;a href=&quot;https://yandex.ru/api/news?page=1&quot;&gt;https://yandex.ru/api/news?page=1&lt;/a&gt; вернет заголовки и текст самих новостей.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;ВАЖНО:&lt;/strong&gt; Становится понятно, что клиент может отправлять на сервер запросы только по определенным URL,
+так как у веб-сервера необходимо заранее запрограммировать ответ на каждый! URL&lt;/p&gt;
+&lt;p&gt;Динамические данные принято отдавать с сервера в формате &lt;em&gt;JSON&lt;/em&gt;.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;JSON - JavaScript Object Notation. Это обычный текстовый формат, который построен по принципу ключ-значение.
+Так называется, потому что структура JSON файла очень похожа на описание объектов в языке Javascript&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Пример JSON файла с новостными статьями:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;json&quot;&gt;&lt;pre class=&quot;language-json&quot;&gt;&lt;code class=&quot;language-json&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token property&quot;&gt;&quot;title&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;название новости 1&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token property&quot;&gt;&quot;text&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;текст статьи 1 ...&quot;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token property&quot;&gt;&quot;title&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;название новости 2&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token property&quot;&gt;&quot;text&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;текст статьи 2 ...&quot;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Мы вплотную подобрались к изучению бэкенда (того, что происходит на сервере). Stay tuned!&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Клиент-серверная архитектура]]></title><description><![CDATA[Привет! В этой статье поговорим о том как работает интернет, что такое клиент, сервер и все в этом духе… Как работает интернет? Любой сайт в…]]></description><link>https://backender.ru/client-server-architecture/</link><guid isPermaLink="false">https://backender.ru/client-server-architecture/</guid><pubDate>Mon, 28 Feb 2022 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Привет! В этой статье поговорим о том как работает интернет, что такое клиент, сервер и все в этом духе…&lt;/p&gt;
+&lt;h2&gt;Как работает интернет?&lt;/h2&gt;
+&lt;p&gt;Любой сайт в интернете работает по принципу клиент-серверной архитектуры.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;В большинстве случаев клиент - это браузер на ноутбуке или телефоне (chrome, firefox, safari …)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Предположим, что я пытаюсь открыть в браузере сайт Яндекса. Для того чтобы отобразить нам страничку Яндекса - браузер должен отправить запрос на &lt;em&gt;сервер&lt;/em&gt; компании Яндекс.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Сервер - это физический железный компьютер, на котором программисты компании Яндекс запустили программный код, который умеет отдавать главную страничку Яндекса (и не только)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Запрос - это текстовая строка, в которой содержится информация о том, какую страницу мы хотим открыть. Клиент (браузер) умеют составлять и отправлять запрос.
+А сервер умеет его расшифровывать и отдавать в ответ какие-то данные (в нашем случае главную страничку Яндекса).&lt;/p&gt;
+&lt;p&gt;Для того чтобы клиент и сервер легко понимали друг друга - запросы составляются по определенным правилам &lt;em&gt;протокола HTTP&lt;/em&gt;.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Меня тоже пугает слово протокол :) Это просто набор правил по которым формируется строка запроса, но об этом в следующих статьях&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Итак, браузер понимает, что мы хотим увидеть страничку Яндекса. Но чтобы отправить запрос - браузер должен узнать &lt;em&gt;ip адрес&lt;/em&gt; сервера Яндекса.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;IP-адрес - это уникальный адрес любого компьютера в сети интернет, выглядит как набор цифр, разделенных точками, например так: 77.88.55.50&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Для того чтобы из названия сайта получить IP-адрес сервера придумали целую систему доменных имен &lt;em&gt;DNS&lt;/em&gt;.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;DNS - domain name system. Для простоты я себе это представляю как большую базу данных в которую надо отправить по интернету запрос с названием сайта, а она вернет IP-адрес сервера в ответе&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Да, чуть не забыл, &lt;em&gt;доменное имя&lt;/em&gt; или &lt;em&gt;домен&lt;/em&gt; - это просто название сайта. В нашем случае домен это yandex.ru&lt;/p&gt;
+&lt;div&gt;&lt;re-img src=&quot;client-server.jpg&quot; title=&quot;&amp;#x41A;&amp;#x43B;&amp;#x438;&amp;#x435;&amp;#x43D;&amp;#x442; &amp;#x441;&amp;#x435;&amp;#x440;&amp;#x432;&amp;#x435;&amp;#x440;&amp;#x43D;&amp;#x430;&amp;#x44F; &amp;#x430;&amp;#x440;&amp;#x445;&amp;#x438;&amp;#x442;&amp;#x435;&amp;#x43A;&amp;#x442;&amp;#x443;&amp;#x440;&amp;#x430;&quot; alt=&quot;&amp;#x41A;&amp;#x43B;&amp;#x438;&amp;#x435;&amp;#x43D;&amp;#x442; &amp;#x441;&amp;#x435;&amp;#x440;&amp;#x432;&amp;#x435;&amp;#x440;&amp;#x43D;&amp;#x430;&amp;#x44F; &amp;#x430;&amp;#x440;&amp;#x445;&amp;#x438;&amp;#x442;&amp;#x435;&amp;#x43A;&amp;#x442;&amp;#x443;&amp;#x440;&amp;#x430;&quot; rehyped=&quot;{&amp;quot;base64&amp;quot;:&amp;quot;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAOABQDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAECAwX/xAAVAQEBAAAAAAAAAAAAAAAAAAAAAf/aAAwDAQACEAMQAAAB20Ri0Yf/xAAZEAACAwEAAAAAAAAAAAAAAAAAARARM0L/2gAIAQEAAQUCZUdPQ//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8BP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8BP//EABgQAAIDAAAAAAAAAAAAAAAAAAEQACGR/9oACAEBAAY/ApZOsL//xAAcEAEAAgEFAAAAAAAAAAAAAAABABFRECGRscH/2gAIAQEAAT8hGL5h5EBRXcWgZg3NP//aAAwDAQACAAMAAAAQPC//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/ED//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/ED//xAAcEAEAAgIDAQAAAAAAAAAAAAABABEhMRBBgaH/2gAIAQEAAT8QQHKugca7tOgsSiCtdq2Psz4itnFa8eP/2Q==&amp;quot;,&amp;quot;aspectRatio&amp;quot;:1.474825716498838,&amp;quot;src&amp;quot;:&amp;quot;/static/a56138e316008d9a3c0b31fb3a0f5729/0ae04/client-server.jpg&amp;quot;,&amp;quot;srcSet&amp;quot;:&amp;quot;/static/a56138e316008d9a3c0b31fb3a0f5729/122c5/client-server.jpg 200w,\n/static/a56138e316008d9a3c0b31fb3a0f5729/b9af0/client-server.jpg 400w,\n/static/a56138e316008d9a3c0b31fb3a0f5729/0ae04/client-server.jpg 800w,\n/static/a56138e316008d9a3c0b31fb3a0f5729/e6d48/client-server.jpg 1200w,\n/static/a56138e316008d9a3c0b31fb3a0f5729/4e354/client-server.jpg 1600w,\n/static/a56138e316008d9a3c0b31fb3a0f5729/2bfda/client-server.jpg 1904w&amp;quot;,&amp;quot;srcSetType&amp;quot;:&amp;quot;image/jpeg&amp;quot;,&amp;quot;sizes&amp;quot;:&amp;quot;(max-width: 800px) 100vw, 800px&amp;quot;,&amp;quot;originalImg&amp;quot;:&amp;quot;/static/a56138e316008d9a3c0b31fb3a0f5729/2bfda/client-server.jpg&amp;quot;,&amp;quot;originalName&amp;quot;:&amp;quot;client-server.jpg&amp;quot;,&amp;quot;density&amp;quot;:1829,&amp;quot;presentationWidth&amp;quot;:800,&amp;quot;presentationHeight&amp;quot;:542,&amp;quot;tracedSVG&amp;quot;:&amp;quot;data:image/svg+xml,%3csvg%20xmlns=&amp;apos;http://www.w3.org/2000/svg&amp;apos;%20width=&amp;apos;400&amp;apos;%20height=&amp;apos;271&amp;apos;%3e%3cpath%20d=&amp;apos;M36%2021c-1%204%200%2015%202%2016%202%200%202-1%202-3v-2l3%202c4%204%205%201%202-3l-3-3%202-3%203-4c-1-2-3-1-5%201l-2%201c0-2-3-3-4-2m105%2011c0%206%200%208%202%208%201%201%201%200%201-2l2-2c4%200%206-9%202-11h-4l-1-1c-2%200-2%202-2%208m32%200l1%208c2%200%202%200%202-2%200-1%200-2%202-2s4-2%205-6c0-3-1-4-6-5l-4-1v8m62%200v8h-6l-13%201-8%202-3%201-4%202-4%204-2%202-3%203c-4%204-4%2019%201%2019l1%202%203%202%206%201h5c3-1%204-1%206%201h18l6-3%203-3h3c2%200%205-3%206-6l2-5c3-6%202-10-2-14l-9-7c-2%200-2-2-3-3%200-2%201-3%202-3%201%201%204-2%205-6%200-3-1-5-6-6h-4v8m12-7v3c2%202%202%203%200%205-3%204%200%205%203%202l2-2v2c1%202%202%202%204%201%201%200%201-1-1-3s-2-3%200-4c1-3%203-1%203%203l1%204%204%201h4v-6c0-5%200-6-2-6-1%200-2%201-2%204%200%205-2%206-2%201s0-5-3-5l-5%201h-3c-1-1-2-2-3-1m22%200c-1%204%200%2011%202%2012%202%200%202-1%202-3%200-5%201-7%202-2s4%207%204%202%201-7%202-2c0%203%201%205%202%205%202%200%202%200%202-6v-5l-7-1h-9m39%205c0%205%201%207%202%207l2-3c1-7%201-8%202-2s3%207%204%201c0-5%202-6%202-1%200%204%201%206%203%204V26l-5-1h-8l-2-1v6m29%202v8l2%201c2%200%202%200%202-3l1-2c1%202%205-3%205-7%200-3-3-6-5-4h-1l-2-1c-2%200-2%201-2%208M93%2031v5l1%201c2%200%202%200%202-3l2-6c1-1%201-1%201%203l1%205c2%201%202%201%202-2l2-6c1-1%201-1%201%203l1%205c2%201%202%200%202-5v-5l-8-1h-7v6m105-5l-2%201c1%202%201%202%205%200l-2%202c-3%203-4%205-1%207h7c4%201%204%201%206-1h2c2%203%203%202%203-4s0-6-2-6c-4%200-6%203-6%205%201%202%200%203-1%204s-1%201-1-2c0-5-3-8-8-6m31%2017l-7%201-9%201h-4l-3%201-3%202-3%204c-2%200-3%201-3%202l-1%202c-3%200-5%205-4%206v7l1%202%201%201%202%202c0%202%201%202%203%202%202-1%203%200%204%201%202%201%203%201%206-1%203-1%203-1%205%201s4%203%207%200c2-1%202-1%205%201%204%201%204%201%206-1l4-2%204-3c2-2%203-2%204-1%201%202%204-3%204-6-1-2-1-3%201-3%202-1%202-1%202-4v-3c2-1-5-7-8-8l-2-1c0-2-3-3-5-3h-7m-53%2030l-4%202-8%206c-8%204-24%2017-29%2022-4%206-6%208-6%2010s1%201%203-3l22-20c8-6%2022-13%2022-12l4-1c6-5%204-6-4-4m4%2013c-9%208-33%2022-34%2020s-9%206-9%208h7c2-1%202-1%201-2-2%200%202-3%2013-9%2015-8%2027-18%2029-22%201-3%200-3-7%205m4%206v3l-1%203v3l-2-4-3-4v4c1%201%201%202-1%202l-1%204c1%202%200%203-1%200h-3c-2%201-3%204-1%206%201%200%209-3%2011-6l2-1%203-1%203-2-2-4-2-5-1-1-1%203m-88%2048l1%2025v-49h27v25l1%2025v-51H96v25m152%2017l-19%204-1%2010-1%2047-1%2036h5l32%204c2%202%2012%200%2024-5l12-5v-67l-13-14c-10-10-14-14-16-14l-22%204m22%2046v47h-3c-3%200-3%200-3%204%200%203%200%203%204%203h3v-50a1283%201283%200%2000-1-4m3%203a477%20477%200%20002%201%20501%20501%200%2000-2-1m-18-46l-15%203c-5%201-5%201-5%205%200%203%200%203%203%203l15-3c14-2%2013-1%2013-6s1-4-11-2m22%2048v47l2-1%2010-4%208-4v-64l-10-11-10-10v47m-27-37c-15%202-15%201-15%206%200%204%200%204%2018%201l13-1v-4c0-5%201-5-16-2m-2%2010l-13%201c-1%201-2%208%200%208a933%20933%200%200029-3c2%200%202-1%202-4%200-5%200-5-18-2m0%2010l-13%201-1%204v4l7-1%2016-1h9v-5c0-5%201-5-18-2m6%2010l4%201%205%201v13h-27l-1-4c0-3%200-4%202-5%201%200%202-1%201-2l3-3h4l-5-1-5%201-1%2021-1%2021h33v-44h-6l-6%201m-170%208c-2%203-1%2036%200%2035%201-2%205-2%2028-2h27v-34h-28l-27%201m153%203v2h24v-5h-24v3M85%20226v14h52v-29H85v15m21%2019c-1%2012%200%2011-16%2011l-13-1h-1v4l1-1c-1-1%2011-1%2035-1h36l-35%201a444%20444%200%200029%201c6%200%206%200%206-2l-2-2-14%201h-13l-1-2c-1-2%200-3%201-3l1-1%201-4c1-2%201-2-1-2l-3%204-1%204%201-4c0-5-2-6-3%200l-2%203v-7l-2%204-2%203v-3l1-4-3%201m129%205a584%20584%200%200026%205l1-3v-3h-9l-13-1c-5%200-5%200-5%202&amp;apos;%20fill=&amp;apos;%23f9ebd2&amp;apos;%20fill-rule=&amp;apos;evenodd&amp;apos;/%3e%3c/svg%3e&amp;quot;}&quot;&gt;&lt;/re-img&gt;&lt;/re-img&gt;&lt;/div&gt;
+&lt;p&gt;Итак, теперь мы готовы к тому, чтобы полностью описать схему взаимодействия клиента и сервера&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Мы вводим в адресной строке браузера доменное имя yandex.ru&lt;/li&gt;
+&lt;li&gt;Браузер отправляет запрос в систему доменных имен DNS и узнает IP-адрес сервера компании Яндекс&lt;/li&gt;
+&lt;li&gt;Браузер отправляет запрос за главной страницей по полученному ip-адресу на сервер&lt;/li&gt;
+&lt;li&gt;Сервер присылает в ответ &lt;em&gt;HTML файл&lt;/em&gt;, в котором основное содержимое главной страницы Яндекса&lt;/li&gt;
+&lt;li&gt;Браузер получает и анализирует HTML файл&lt;/li&gt;
+&lt;li&gt;Браузер отрисовывает HTML файл и у нас на экране появится долгожданная страница&lt;/li&gt;
+&lt;li&gt;Пользователь взаимодействует со страницей, при нажатии на любую ссылку (например, надпись погода) отправляется запрос на сервер за новой страницей&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;HTML - HyperText Markup Language (язык гипертекстовой разметки). Простыми словами - это язык программирования, в котором описывается внешний вид веб страницы.
+Внутри HTML документа содержатся ссылки. Если пользователь нажмет на ссылку, то браузер загрузит и откроет новую HTML страницу. Гипертекст = ссылки.
+То есть HTML - файл, в котором задан внешний вид страницы и в котором есть ссылки на другие страницы&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Созданием этой HTML страницы занимается &lt;em&gt;фронтенд разработчик&lt;/em&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Фронтенд разработчик программирует интерфейс, который видит и с которым взаимодействует пользователь. Фронтендеры используют такие технологии как HTML, CSS, Javascript&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Сервер:&lt;/strong&gt; Почти у каждого сайта свой собственный сервер, на котором заранее приготовлена HTML страничка сайта.
+Т.е. запросы за страничкой yandex.ru придут на один компьютер (на сервер компании Яндекс), а запросы за страницей vk.ru придут на совершенно другой компьютер (сервер компании VK)&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Краткий итог: на сервере лежит HTML страница, которую создал фронтенд программист. Когда клиенты открывают сайт, то сервер отдает в ответ каждому из клиентов эту HTML страницу&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Теперь мы понимаем как работает всемирная паутина!&lt;/p&gt;
+&lt;p&gt;Но следует отметить, что современные сайты делают гораздо больше запросов на сервера: за дополнительными данными, js, css и т.д. Подробнее о работе клиента поговорим в отдельной статье.&lt;/p&gt;
+&lt;h2&gt;Веб клиенты&lt;/h2&gt;
+&lt;p&gt;Как мы уже знаем, чаще всего клиент - это браузер. Следующий по популярности клиент - это мобильное приложение, установленное на смартфон.
+Схема работы мобильного приложения очень похожа на схему работы сайта.&lt;/p&gt;
+&lt;p&gt;Мобильному приложению не требуется HTML файл, внутри мобильного приложения уже есть информация о том, как выглядит его интерфейс.
+Поэтому при открытии мобильного приложения запросы отправляются на сервер, чтобы получить свежие данные, которые необходимо отобразить пользователю (например, новости).&lt;/p&gt;
+&lt;div&gt;&lt;re-img src=&quot;client-server.jpg&quot; title=&quot;&amp;#x41A;&amp;#x43B;&amp;#x438;&amp;#x435;&amp;#x43D;&amp;#x442; &amp;#x441;&amp;#x435;&amp;#x440;&amp;#x432;&amp;#x435;&amp;#x440;&amp;#x43D;&amp;#x430;&amp;#x44F; &amp;#x430;&amp;#x440;&amp;#x445;&amp;#x438;&amp;#x442;&amp;#x435;&amp;#x43A;&amp;#x442;&amp;#x443;&amp;#x440;&amp;#x430;&quot; alt=&quot;&amp;#x41A;&amp;#x43B;&amp;#x438;&amp;#x435;&amp;#x43D;&amp;#x442; &amp;#x441;&amp;#x435;&amp;#x440;&amp;#x432;&amp;#x435;&amp;#x440;&amp;#x43D;&amp;#x430;&amp;#x44F; &amp;#x430;&amp;#x440;&amp;#x445;&amp;#x438;&amp;#x442;&amp;#x435;&amp;#x43A;&amp;#x442;&amp;#x443;&amp;#x440;&amp;#x430;&quot; rehyped=&quot;{&amp;quot;base64&amp;quot;:&amp;quot;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAOABQDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAECAwX/xAAVAQEBAAAAAAAAAAAAAAAAAAAAAf/aAAwDAQACEAMQAAAB20Ri0Yf/xAAZEAACAwEAAAAAAAAAAAAAAAAAARARM0L/2gAIAQEAAQUCZUdPQ//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQMBAT8BP//EABQRAQAAAAAAAAAAAAAAAAAAABD/2gAIAQIBAT8BP//EABgQAAIDAAAAAAAAAAAAAAAAAAEQACGR/9oACAEBAAY/ApZOsL//xAAcEAEAAgEFAAAAAAAAAAAAAAABABFRECGRscH/2gAIAQEAAT8hGL5h5EBRXcWgZg3NP//aAAwDAQACAAMAAAAQPC//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/ED//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/ED//xAAcEAEAAgIDAQAAAAAAAAAAAAABABEhMRBBgaH/2gAIAQEAAT8QQHKugca7tOgsSiCtdq2Psz4itnFa8eP/2Q==&amp;quot;,&amp;quot;aspectRatio&amp;quot;:1.474825716498838,&amp;quot;src&amp;quot;:&amp;quot;/static/a56138e316008d9a3c0b31fb3a0f5729/0ae04/client-server.jpg&amp;quot;,&amp;quot;srcSet&amp;quot;:&amp;quot;/static/a56138e316008d9a3c0b31fb3a0f5729/122c5/client-server.jpg 200w,\n/static/a56138e316008d9a3c0b31fb3a0f5729/b9af0/client-server.jpg 400w,\n/static/a56138e316008d9a3c0b31fb3a0f5729/0ae04/client-server.jpg 800w,\n/static/a56138e316008d9a3c0b31fb3a0f5729/e6d48/client-server.jpg 1200w,\n/static/a56138e316008d9a3c0b31fb3a0f5729/4e354/client-server.jpg 1600w,\n/static/a56138e316008d9a3c0b31fb3a0f5729/2bfda/client-server.jpg 1904w&amp;quot;,&amp;quot;srcSetType&amp;quot;:&amp;quot;image/jpeg&amp;quot;,&amp;quot;sizes&amp;quot;:&amp;quot;(max-width: 800px) 100vw, 800px&amp;quot;,&amp;quot;originalImg&amp;quot;:&amp;quot;/static/a56138e316008d9a3c0b31fb3a0f5729/2bfda/client-server.jpg&amp;quot;,&amp;quot;originalName&amp;quot;:&amp;quot;client-server.jpg&amp;quot;,&amp;quot;density&amp;quot;:1829,&amp;quot;presentationWidth&amp;quot;:800,&amp;quot;presentationHeight&amp;quot;:542,&amp;quot;tracedSVG&amp;quot;:&amp;quot;data:image/svg+xml,%3csvg%20xmlns=&amp;apos;http://www.w3.org/2000/svg&amp;apos;%20width=&amp;apos;400&amp;apos;%20height=&amp;apos;271&amp;apos;%3e%3cpath%20d=&amp;apos;M36%2021c-1%204%200%2015%202%2016%202%200%202-1%202-3v-2l3%202c4%204%205%201%202-3l-3-3%202-3%203-4c-1-2-3-1-5%201l-2%201c0-2-3-3-4-2m105%2011c0%206%200%208%202%208%201%201%201%200%201-2l2-2c4%200%206-9%202-11h-4l-1-1c-2%200-2%202-2%208m32%200l1%208c2%200%202%200%202-2%200-1%200-2%202-2s4-2%205-6c0-3-1-4-6-5l-4-1v8m62%200v8h-6l-13%201-8%202-3%201-4%202-4%204-2%202-3%203c-4%204-4%2019%201%2019l1%202%203%202%206%201h5c3-1%204-1%206%201h18l6-3%203-3h3c2%200%205-3%206-6l2-5c3-6%202-10-2-14l-9-7c-2%200-2-2-3-3%200-2%201-3%202-3%201%201%204-2%205-6%200-3-1-5-6-6h-4v8m12-7v3c2%202%202%203%200%205-3%204%200%205%203%202l2-2v2c1%202%202%202%204%201%201%200%201-1-1-3s-2-3%200-4c1-3%203-1%203%203l1%204%204%201h4v-6c0-5%200-6-2-6-1%200-2%201-2%204%200%205-2%206-2%201s0-5-3-5l-5%201h-3c-1-1-2-2-3-1m22%200c-1%204%200%2011%202%2012%202%200%202-1%202-3%200-5%201-7%202-2s4%207%204%202%201-7%202-2c0%203%201%205%202%205%202%200%202%200%202-6v-5l-7-1h-9m39%205c0%205%201%207%202%207l2-3c1-7%201-8%202-2s3%207%204%201c0-5%202-6%202-1%200%204%201%206%203%204V26l-5-1h-8l-2-1v6m29%202v8l2%201c2%200%202%200%202-3l1-2c1%202%205-3%205-7%200-3-3-6-5-4h-1l-2-1c-2%200-2%201-2%208M93%2031v5l1%201c2%200%202%200%202-3l2-6c1-1%201-1%201%203l1%205c2%201%202%201%202-2l2-6c1-1%201-1%201%203l1%205c2%201%202%200%202-5v-5l-8-1h-7v6m105-5l-2%201c1%202%201%202%205%200l-2%202c-3%203-4%205-1%207h7c4%201%204%201%206-1h2c2%203%203%202%203-4s0-6-2-6c-4%200-6%203-6%205%201%202%200%203-1%204s-1%201-1-2c0-5-3-8-8-6m31%2017l-7%201-9%201h-4l-3%201-3%202-3%204c-2%200-3%201-3%202l-1%202c-3%200-5%205-4%206v7l1%202%201%201%202%202c0%202%201%202%203%202%202-1%203%200%204%201%202%201%203%201%206-1%203-1%203-1%205%201s4%203%207%200c2-1%202-1%205%201%204%201%204%201%206-1l4-2%204-3c2-2%203-2%204-1%201%202%204-3%204-6-1-2-1-3%201-3%202-1%202-1%202-4v-3c2-1-5-7-8-8l-2-1c0-2-3-3-5-3h-7m-53%2030l-4%202-8%206c-8%204-24%2017-29%2022-4%206-6%208-6%2010s1%201%203-3l22-20c8-6%2022-13%2022-12l4-1c6-5%204-6-4-4m4%2013c-9%208-33%2022-34%2020s-9%206-9%208h7c2-1%202-1%201-2-2%200%202-3%2013-9%2015-8%2027-18%2029-22%201-3%200-3-7%205m4%206v3l-1%203v3l-2-4-3-4v4c1%201%201%202-1%202l-1%204c1%202%200%203-1%200h-3c-2%201-3%204-1%206%201%200%209-3%2011-6l2-1%203-1%203-2-2-4-2-5-1-1-1%203m-88%2048l1%2025v-49h27v25l1%2025v-51H96v25m152%2017l-19%204-1%2010-1%2047-1%2036h5l32%204c2%202%2012%200%2024-5l12-5v-67l-13-14c-10-10-14-14-16-14l-22%204m22%2046v47h-3c-3%200-3%200-3%204%200%203%200%203%204%203h3v-50a1283%201283%200%2000-1-4m3%203a477%20477%200%20002%201%20501%20501%200%2000-2-1m-18-46l-15%203c-5%201-5%201-5%205%200%203%200%203%203%203l15-3c14-2%2013-1%2013-6s1-4-11-2m22%2048v47l2-1%2010-4%208-4v-64l-10-11-10-10v47m-27-37c-15%202-15%201-15%206%200%204%200%204%2018%201l13-1v-4c0-5%201-5-16-2m-2%2010l-13%201c-1%201-2%208%200%208a933%20933%200%200029-3c2%200%202-1%202-4%200-5%200-5-18-2m0%2010l-13%201-1%204v4l7-1%2016-1h9v-5c0-5%201-5-18-2m6%2010l4%201%205%201v13h-27l-1-4c0-3%200-4%202-5%201%200%202-1%201-2l3-3h4l-5-1-5%201-1%2021-1%2021h33v-44h-6l-6%201m-170%208c-2%203-1%2036%200%2035%201-2%205-2%2028-2h27v-34h-28l-27%201m153%203v2h24v-5h-24v3M85%20226v14h52v-29H85v15m21%2019c-1%2012%200%2011-16%2011l-13-1h-1v4l1-1c-1-1%2011-1%2035-1h36l-35%201a444%20444%200%200029%201c6%200%206%200%206-2l-2-2-14%201h-13l-1-2c-1-2%200-3%201-3l1-1%201-4c1-2%201-2-1-2l-3%204-1%204%201-4c0-5-2-6-3%200l-2%203v-7l-2%204-2%203v-3l1-4-3%201m129%205a584%20584%200%200026%205l1-3v-3h-9l-13-1c-5%200-5%200-5%202&amp;apos;%20fill=&amp;apos;%23f9ebd2&amp;apos;%20fill-rule=&amp;apos;evenodd&amp;apos;/%3e%3c/svg%3e&amp;quot;}&quot;&gt;&lt;/re-img&gt;&lt;/re-img&gt;&lt;/div&gt;
+&lt;p&gt;Сценарий работы:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Пользователь открывает мобильное приложение&lt;/li&gt;
+&lt;li&gt;Приложение с помощью системы DNS узнает IP-адрес сервера компании&lt;/li&gt;
+&lt;li&gt;Приложение отправляет HTTP запрос на сервер за новыми данными, которые надо отобразить пользователю&lt;/li&gt;
+&lt;li&gt;Сервер компании присылает в ответ необходимые данные&lt;/li&gt;
+&lt;li&gt;Приложение получает данные&lt;/li&gt;
+&lt;li&gt;Пользователь видит экран приложения с данными&lt;/li&gt;
+&lt;li&gt;Пользователь взаимодействует с приложением, при переходе на новые страницы приложения, отправляется запрос на сервер за данными для новой страницы&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Есть и другие &lt;em&gt;клиенты&lt;/em&gt;, но пользуются популярностью они только у программистов ;)
+Это может быть программный код, вот пример на языке python.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;python&quot;&gt;&lt;pre class=&quot;language-python&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; requests
+r &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; requests&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;get&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;https://yandex.ru/&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Или программы с графическим интерфейсом для отправки HTTP запросов, такие как Postman.&lt;/p&gt;
+&lt;p&gt;Также это могут быть различные консольные утилиты, которые не имеют графического интерфейса. Их использует в командной строке операционной системы. Одна из самых популярных называется curl&lt;/p&gt;
+&lt;p&gt;В этой статье было много новых терминов, которые будут постоянно нам встречаться в дальнейшем, поэтому обязательно запомни или выпиши их&lt;/p&gt;
+&lt;p&gt;До встречи в следующей статье!&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Попробуй написать код]]></title><link>https://backender.ru/write-code/</link><guid isPermaLink="false">https://backender.ru/write-code/</guid><pubDate>Sun, 20 Feb 2022 00:00:00 GMT</pubDate><content:encoded></content:encoded></item><item><title><![CDATA[Направления в IT]]></title><description><![CDATA[В веб-разработке большое количество it профессий. Об это я записал целое видео, чуть позже появится еще и письменная версия.]]></description><link>https://backender.ru/it-professions/</link><guid isPermaLink="false">https://backender.ru/it-professions/</guid><pubDate>Sat, 12 Feb 2022 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;В веб-разработке большое количество it профессий. Об это я записал целое &lt;a href=&quot;https://www.youtube.com/watch?v=akP2irmv6v4&quot; target=&quot;_blank&quot;&gt;видео&lt;/a&gt;, чуть позже появится еще и письменная версия.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Как пользоваться роадмапом]]></title><description><![CDATA[Привет! На данном сайте ты найдешь роадмап фронтенд и бэкенд программиста.
+На них я постарался указать те знания, которые необходимы для…]]></description><link>https://backender.ru/how-to-use-roadmap/</link><guid isPermaLink="false">https://backender.ru/how-to-use-roadmap/</guid><pubDate>Sat, 05 Feb 2022 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Привет! На данном сайте ты найдешь роадмап фронтенд и бэкенд программиста.
+На них я постарался указать те знания, которые необходимы для того, чтобы стать junior программистом.&lt;/p&gt;
+&lt;p&gt;Почти на каждый прямоугольник на схеме можно нажать и откроется статья, где простыми словами объясняется данная тема.&lt;/p&gt;
+&lt;p&gt;Рекомендую читать роадмап последовательно, потому что каждая новая статья опирается на знания и терминологию, полученные в предыдущих статьях.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Такими сносками я обычно выделяю определения терминов или важный материал, который обязательно надо запомнить&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;В веб-разработке большое количество терминов.
+Я сделал для них отдельную &lt;a href=&quot;https://backender.ru/terms&quot; target=&quot;_blank&quot;&gt;страницу&lt;/a&gt;, которая позволит быстро вспомнить что означает то или иное слово.
+Также найти ее можно в меню.&lt;/p&gt;
+&lt;p&gt;Удачи тебе на пути веб разработчика. Не сдавайся, потраченные силы и время обязательно принесут свои плоды!&lt;/p&gt;
+&lt;p&gt;Роадмап постоянно совершенствуется и добавляются новые статьи.
+Чтобы первым узнавать о появлении новых статей - обязательно подпишись на &lt;a href=&quot;https://t.me/backenderRu&quot; target=&quot;_blank&quot;&gt;телеграм канал&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Сколько учиться на программиста]]></title><description><![CDATA[Привет! Здесь мы обсудим то, на сколько сложно стать программистом, что нужно для этого знать и сколько это займет времени. Сколько времени…]]></description><link>https://backender.ru/how-much-to-study-to-be-programmer/</link><guid isPermaLink="false">https://backender.ru/how-much-to-study-to-be-programmer/</guid><pubDate>Tue, 01 Feb 2022 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Привет! Здесь мы обсудим то, на сколько сложно стать программистом, что нужно для этого знать и сколько это займет времени.&lt;/p&gt;
+&lt;h2&gt;Сколько времени учиться на программиста&lt;/h2&gt;
+&lt;p&gt;Отвечать на данный вопрос я буду исходя из личного опыта.
+Я учился на 4 курсе университета на инженерной специальности, которая совершенно не связана с программированием.
+Внезапно я понял, что моя специальность не самая перспективная и начал изучать программирование ))&lt;/p&gt;
+&lt;p&gt;Через несколько недель мне посчастливилось попасть в бесплатную 2-х летнюю школу от компании Mail.ru (теперь уже VK),
+которая готовила веб программистов.&lt;/p&gt;
+&lt;p&gt;Пройти отбор в школу от Mail.ru было большой удачей, так как на тот момент у меня были нулевые знания в программировании :))&lt;/p&gt;
+&lt;p&gt;Спустя год упорных занятий я устроился junior бэкенд программистом в мало известную компанию.&lt;/p&gt;
+&lt;p&gt;В среднем это занимает от полугода до полутора лет и вы в любом случае обречены на успех, если у вас хорошие учителя&lt;/p&gt;
+&lt;h2&gt;Что нужно знать начинающему программисту&lt;/h2&gt;
+&lt;p&gt;В веб программировании большое количество профессий и об этом у меня есть целое видео! &lt;a href=&quot;https://www.youtube.com/watch?v=akP2irmv6v4&quot; target=&quot;_blank&quot;&gt;Профессии в IT&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Почти все профессии можно начать изучать прямо сейчас без предварительной подготовки!&lt;/p&gt;
+&lt;p&gt;Небольшим исключением является data science, в этой профессии желательно иметь математическую подготовку.&lt;/p&gt;
+&lt;h2&gt;Как программисту найти первую работу&lt;/h2&gt;
+&lt;p&gt;Много крупных компаний проводят &lt;em&gt;стажировки&lt;/em&gt;, которые позволяют студентам работать около 20 часов в неделю в свободное от учебы время и получить свой первый опыт.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Стажировка очень похожа на обычную работу программиста. Основные отличия - это количество рабочих часов, сложность задач, ответственность, ну и заработная плата&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Обычно стажировка длится от 3-х до 6-ти месяцев.
+Бывают как оплачиваемые (в Москве около 20-40т в месяц за 20 рабочих часов в неделю), так и нет.
+После прохождения стажировки есть высокая вероятность, что вам предложат работу junior-разработчика в этой компании.&lt;/p&gt;
+&lt;p&gt;Вперед изучать веб программирование! Чтобы первым узнавать о новых статьях - подпишись на &lt;a href=&quot;https://t.me/backenderRu&quot; target=&quot;_blank&quot;&gt;телеграм канал&lt;/a&gt;!&lt;/p&gt;</content:encoded></item></channel></rss>
