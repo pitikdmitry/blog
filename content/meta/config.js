@@ -10,7 +10,7 @@ module.exports = {
   /* author */
   authorName: "Dmitry",
   authorYoutube: "https://www.youtube.com/channel/UCJ5niaSEM0TqxLpRMzQ1-wQ?view_as=subscriber",
-  authorTelegram: "",
+  authorTelegram: "https://t.me/backenderRu",
   authorInstagram: "",
 
   /* header text */
