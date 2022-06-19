@@ -239,6 +239,15 @@ exports.createPages = ({ graphql, actions }) => {
           }
         });
 
+        createPage({
+          path: `/terms`,
+          component: path.resolve("./src/templates/terms.js"),
+          context: {
+            slug: `/terms/`,
+            source: "pages"
+          }
+        });
+
       })
     );
   });

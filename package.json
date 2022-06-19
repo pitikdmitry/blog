@@ -1,9 +1,9 @@
 {
   "name": "@pitikdmitry/blog",
-  "version": "1.0",
+  "version": "0.1.0",
   "author": "dm p",
-  "description": "blog where i study web development",
-  "license": "",
+  "description": "Web development teaching",
+  "license": "MIT",
   "dependencies": {
     "child_process": "^1.0.2",
     "electron": "^16.0.7",
