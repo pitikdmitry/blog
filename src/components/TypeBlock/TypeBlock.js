@@ -31,6 +31,7 @@ const TypeBlock = props => {
         .type-block {
           display: flex;
           justify-content: space-between;
+          padding-bottom: 100px;
         }
       `}</style>
     </React.Fragment>

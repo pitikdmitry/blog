@@ -18,11 +18,24 @@ const Backend = props => {
         {theme => (
           <Article theme={theme}>
             <Page page={page} theme={theme} />
-            <RoadMapSvg />
+            <div className="road-map-svg">
+              <RoadMapSvg />
+            </div>
           </Article>
         )}
+
       </ThemeContext.Consumer>
       <Seo data={page} />
+
+      {/* --- STYLES --- */}
+      <style jsx>{`
+        .road-map-svg {
+          :global(a):hover {
+            -webkit-filter: drop-shadow(12px 12px 7px rgba(0,0,0,0.5));
+            filter: drop-shadow(12px 12px 7px rgba(0,0,0,0.5));
+          }
+        }
+      `}</style>
     </React.Fragment>
     );
 };

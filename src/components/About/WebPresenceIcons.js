@@ -7,7 +7,6 @@ const WebPresenceIcons = () => {
     return (
         <div className="wrapper">
             <div className="icons">
-              <a href={config.authorYoutube} target="_blank"><FaYoutube/></a>
               <a href={config.authorTelegram} target="_blank" className="social-icon"><FaTelegramPlane/></a>
               {/*<a href={config.authorInstagram} target="_blank" className="social-icon"><FaInstagram/></a>*/}
             </div>
